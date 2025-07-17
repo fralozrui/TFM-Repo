@@ -1,0 +1,4 @@
+# ----------------------------- Dockerfile -----------------------------
+# Define un entorno reproducible para el despliegue del agente multimodal. 
+# Instala dependencias necesarias y configura el entorno para ejecutar el 
+# modelo de forma portable en HuggingFace Spaces o servidores compatibles.
