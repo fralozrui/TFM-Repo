@@ -1,0 +1,149 @@
+1.- HuggingFaceH4/zephyr-7b-beta con API:
+    · Razonaba muy bien y rápido.
+    · Cuesta dinero las llamadas a API (se me ha gastado las gratis de HuggingFace)
+    · Cuesta mucho cargarlo en memoria
+    · Se utiliza con:
+    # ⬛️ 6. Función para hacer inferencia con Hugging Face Inference API
+
+        def query_zephyr(query):
+            prompt = build_prompt(query)
+            payload = {
+                "messages": [{"role": "user", "content": prompt}],
+                "model": "HuggingFaceH4/zephyr-7b-beta",
+                "parameters": {
+                    "max_new_tokens": 256,
+                    "return_full_text": False,
+                    "do_sample": False,
+                    "temperature": 0.1,
+                    "stop": ["```", "\n\n", "</s>"]
+                }
+            }
+            try:
+                response = requests.post(API_URL, headers=headers, json=payload, timeout=60)
+                response.raise_for_status()
+                return response.json()['choices'][0]['message']['content']
+            except requests.exceptions.RequestException as e:
+                print("❌ Error de petición:", str(e))
+                return '{"tools": [], "justification": "No se pudo procesar la solicitud."}'
+
+2.- NousResearch/Nous-Hermes-2-Mistral-7B-DPO-GGUF
+    · Tarda poco en cargarse en memoria
+    · La inferencia tarda mucho
+    · Se utiliza con:
+    # ⬛️ 3. Carga del LLM 
+
+        llm = Llama.from_pretrained(
+            repo_id="NousResearch/Nous-Hermes-2-Mistral-7B-DPO-GGUF",
+            filename="Nous-Hermes-2-Mistral-7B-DPO.Q4_K_M.gguf",
+            n_threads=os.cpu_count(),     # Número de núcleos de CPU
+            n_batch=512,     # Tamaño de lote para tokens (más alto = más velocidad si tu RAM lo permite)
+            use_mlock=True,  # Evita que el modelo se intercambie a disco (mejor en Linux)
+            use_mmap=True    # Carga el modelo en memoria compartida más rápido
+        )
+    # ⬛️ 6. Función para hacer inferencia con el modelo cargado
+        def query_local_model(user_input):
+            prompt = build_prompt(user_input)
+
+            response = llm(
+                prompt,
+                max_tokens=48,
+                temperature=0.1,
+                stop=["```", "\n\n", "</s>", "Petición del usuario:"]
+                )
+
+            # Extraemos solo el texto generado
+            generated_text = response["choices"][0]["text"].strip()
+
+            return generated_text
+3.- google/flan-t5-base
+    · Tarda poco en cargar
+    · Predicciones rápidas pero no siguen la estructura requerida ni hacen bien las clasificaciones
+    · Se utiliza con:
+    # ⬛️ 3. Carga del LLM 
+        from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+        import torch
+
+        # Cargar modelo y tokenizer
+        flan_model_id = "google/flan-t5-base"
+        tokenizer = AutoTokenizer.from_pretrained(flan_model_id)
+        model = AutoModelForSeq2SeqLM.from_pretrained(flan_model_id)
+
+        # Usar GPU si está disponible
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model = model.to(device)
+        # ⬛️ 5. Construcción del prompt con tools para flan
+            def build_flan_prompt(user_input):
+                tool_list = "\n".join([f'- "{t["name"]}": {t["description"]}' for t in tools])
+                instruction = (
+                    "Dado un conjunto de herramientas y una petición del usuario, "
+                    "elige la(s) herramienta(s) apropiadas para resolverla y justifica la elección."
+                )
+                input_section = f"""
+            Herramientas disponibles:
+            {tool_list}
+
+            Instrucciones:
+            - Elige una o varias herramientas según la petición del usuario.
+            - Justifica tu elección de forma clara y breve.
+            - Usa "object_detection" SOLO si el usuario menciona un objeto específico a localizar.
+            - Usa "describe_scene" si el usuario pide una descripción general sin nombrar objetos.
+            - Usa "ocr" si se menciona la lectura de texto en la imagen.
+            - Si la petición no es visual o no se puede resolver con estas herramientas, devuelve un JSON vacío con justificación.
+            - Devuelve **solo** un JSON con los campos: "tools" y "justification".
+            - No añadas texto adicional fuera del JSON.
+
+            Ejemplo de salida esperada:
+            {{
+            "tools": ["ocr", "object_detection"],
+            "justification": "La petición implica leer texto y localizar un objeto concreto en la imagen."
+            }}
+
+            Petición del usuario:
+            "{user_input}"
+            """
+
+                return f"Instruction: {instruction.strip()}\nInput: {input_section.strip()}\nOutput:"
+        # ⬛️ 6. Función para hacer inferencia con el modelo cargado
+
+        def query_flan(user_input):
+            prompt = build_flan_prompt(user_input)
+            inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=128,
+                do_sample=False,
+                temperature=0.1
+            )
+            decoded_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
+            return decoded_output.strip()
+4.- zephyr-7b-beta.Q3_K_M.gguf en local
+    · Tarda poco en cargar
+    · Si el prompt es muy grande como en este caso tarda mucho en hacer inferencia pero la suele hacer bien
+    · Se utiliza con:
+    # !pip install llama-cpp-python
+
+        from llama_cpp import Llama
+
+        llm = Llama.from_pretrained(
+            repo_id="TheBloke/zephyr-7B-beta-GGUF",
+            filename="zephyr-7b-beta.Q3_K_M.gguf",
+        )
+
+        # ⬛️ 6. Función para hacer las predicciones
+
+        def query_zephyr_local(user_input):
+            prompt = build_prompt(user_input)
+            try:
+            response = llm(
+                prompt,
+                max_tokens=60,
+                temperature=0.1,
+                stop=["</s>", "[/INST]", "Petición del usuario:"]
+            )
+            return response['choices'][0]['text'].strip()
+            except Exception as e:
+            print(f"Error al hacer la petición: {e}")
+            return None
+
+

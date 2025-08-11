@@ -1,0 +1,571 @@
+{"input": "What kind of landscape is depicted?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "How many people are there roughly?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "How many cushions are on the sofa?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is it indoors or outdoors?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes explicarme qué es el amor?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where is the laptop computer?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you read the message on the poster?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Can you describe the background of the image?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Cuántos cuadros hay en la pared?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "How many bottles do you see?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe the atmosphere and locate the bicycle helmet.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you read the text on the image?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde está el ordenador portátil?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué está ocurriendo en la imagen y dónde está la ventana?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Could you read the content of the neon sign?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué información aparece en el documento?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Ves algún enchufe en la pared?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where is the wall poster and what does it say?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "What’s the context of this photo?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "How many cars are on the street?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Explícame qué es un eclipse.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Is there any laptop visible?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe los elementos visibles y dime qué dicen los letreros.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What's the person doing and what does the sign say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Parece de día o de noche?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What’s happening and where is the man with the backpack?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Is María here?¿Puedes traducir esta frase al chino?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué acciones están pasando en la imagen y qué dice la señal?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Este objeto está caliente?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué actividad se muestra en la imagen y dónde están los instrumentos?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Dónde están las llaves?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde está mi mochila?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What’s written on the chalkboard?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What is the population of Germany?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Explain the scene and read everything that's written.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes leer lo que dice la camiseta del niño y dónde está el niño?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "What is the mood of the scene?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Where is the light switch?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cuál es el número primo más cercano a 100?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes describir el fondo de la imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "How many legs does a spider have?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes leer el texto impreso en la caja?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes descifrar las letras en el aviso?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where are the keys?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué edad tengo?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me what's happening in the image and where the man is standing.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What words appear on the screen?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes decirme qué muestra la escena y dónde están las personas sentadas?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Quién fue el primer presidente de España?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where are the flowers in the pot?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Hay un gato negro en la imagen?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cuántos platos están sobre la mesa?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cómo describirías el lugar que aparece?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué mensaje aparece en la pancarta y dónde está colgada?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes decirme qué ocurre en la imagen y localizar el árbol?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What does the note on the table say and where is it exactly?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Can you read the screen?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What’s in the photo and what does the paper say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué se muestra en la imagen y dónde está el espejo?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Tell me what's happening and what is written in the image.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes decir lo que pone en la tarjeta y mostrarme dónde está?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes encontrar el teléfono móvil?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "How many pens are there?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Se ve un bolso sobre la silla?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde están las zapatillas deportivas?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué planeta es el más cercano al Sol?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where is the backpack with the school’s name on it?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Describe la imagen y dime qué dice el cartel azul.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Is there a hat on the table?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe the scene.", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué situación se representa?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes darme una descripción detallada de la foto?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué elementos destacan en la imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you read the content of the information board?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué hay detrás de la pared?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes leer lo que pone en el carnet?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What rhymes with orange?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me about the image and where the stairs are.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you read the text on the package?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes contarme qué se ve en la escena y dónde está el sombrero?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you tell me what's on the paper?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "I'd like to know what's in the picture and what words are shown.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Describe el entorno.", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you read the letters on the ad?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Describe qué pasa y dónde está el televisor.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Puedes hacerme una lista de compras?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Is there a clock in the room?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Hay una mochila azul?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Descríbeme la escena.", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you find the toolbox?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Wake me up when it's 8.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes despertarme en 30 minutos?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Dónde está la silla de oficina?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué hay en la foto y dónde está la caja?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Cuéntame algo sobre Leonardo da Vinci.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué dice el folleto?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "How does the scene look?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes decirme cuántas patas tiene un pulpo?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Make a joke about cats.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you read what the child’s shirt says and point out the child?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Se ve un perro en la foto?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe the action and read anything that appears as text.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Dónde están los zapatos de tacón?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Dime qué pasa en la foto y qué texto hay.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué hora es en Tokio?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Explícame lo que está pasando y lo que dice la pancarta.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué texto aparece en el menú digital?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Can you read what the ID card says?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cómo huele esta flor?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you locate the lamp?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you tell me what the card says and show me where it is?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué hay en la imagen y dónde aparece el cartel verde?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What is written on the board?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where is my backpack?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you find the box and read the printed text on it?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Cómo hago una reserva en un restaurante?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you break down the scene and also include the text?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Hay movimiento en la escena?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you explain what's in the image and quote the text?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Can you recommend a good book?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué se ve en la escena y qué pone en los letreros?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Cuántos bolígrafos hay?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What kind of lighting is in the scene?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Es una imagen tranquila o caótica?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué pone en la pantalla del teléfono y dónde está?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Quién me está hablando?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Cuál es el número que aparece en el cartel?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where is the office chair?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What’s the tallest mountain on Earth?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Define ‘libertad’ con tus propias palabras.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Look at the image, explain it, and read the visible content.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What do you see and what does the text say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What is going on in the image?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué hay en la foto y qué pone en la camiseta?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Can you locate a jacket?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Recítame un poema corto.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Cuántos coches hay aparcados?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué dice la pancarta?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde está la caja con la etiqueta roja y qué dice la etiqueta?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Describe la escena y dime dónde se encuentra la bicicleta.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Where are the empty chairs?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿La imagen sugiere alguna historia o situación?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you read what the neon sign says?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "When is my next appointment?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué pone en la nota de la nevera y dónde está esa nota?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Se ve alguna bicicleta verde?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Send a text to Ana.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Dónde está la lámpara de techo?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you tell me where the shoes are?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What does the license plate say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Say something unexpected.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Me ayudas a escribir un correo?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What kind of place is this?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Cómo es el lugar que se ve en la imagen y dónde está la escalera?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué pone en la matrícula del coche?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué está pasando en la imagen y dónde está el perro?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What does DNA stand for?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué pone en la señal de tráfico?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué dice la etiqueta pegada?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Describe the picture and include any readable text.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What is the boiling point of water?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me what’s happening and point out where the phone is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you observe the scene and read everything that's legible?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Dónde están las gafas de sol?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you identify any relevant objects?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué está pasando en la otra habitación?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you tell me the text on the flyer?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde puedo encontrar el libro rojo?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where is the red carpet?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What textual information does the brochure have?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué información aparece escrita?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde están los altavoces?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe lo que ves y qué texto hay impreso en la imagen.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué tipo de lugar es?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Está Juan conmigo ahora?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Cómo programo un temporizador?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you read the printed text on the box?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Describe the action and show me the orange bag.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Does the image suggest a story or situation?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Is there a blue backpack?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you find a glass?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Tell me what the picture shows and locate the traffic light.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué impresión te da esta imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "How many chairs are occupied?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "How many people are in the picture?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What text is on the device screen?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde está el mando del aire acondicionado?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde está la taza?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Find me a hotel in Barcelona.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Describe everything in the scene and read the text aloud.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What's on the billboard?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué es la inteligencia emocional?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What does the facade advertisement say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué perspectiva tiene la imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Hazme una adivinanza.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Is there a dog in the photo?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Hay una caja abierta en la mesa?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Hay un reloj en la habitación?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe the environment and read any readable content.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Pon música en Spotify.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What do you see?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Describe la situación visual y menciona todo lo que se pueda leer.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Tell me a fun fact about space.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué dice la nota sobre la mesa y dónde está exactamente?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes localizar el teclado?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué texto se ve en el cartel digital?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes leer lo que pone en la caja registradora?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where is the red car?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Tell me what you see in the photo.", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Podrías encender las luces del salón?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué información está en la etiqueta del producto?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Mira la imagen y dime qué sucede y qué dicen los carteles.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Describe the landscape and indicate where the tree is located.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Haz una llamada a mamá.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you tell me what's visible and what the signs say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Describe the visual details and find the plant.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Puedes decirme lo que dice el cartel y señalar dónde está el coche rojo?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Can you describe the room and what’s written on the wall?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Ves un gato?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you see a closed umbrella?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cuál es el texto del cartel?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué texto aparece en el cartel antiguo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Summarize the photo and include any text you find.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes localizar el ratón del ordenador?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Do you see any power outlet on the wall?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde está la ventana?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Hay un cartel en la puerta?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is there a parked bicycle?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where do you think the photo was taken?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Where are the speakers?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where is the letter on the desk and what does it say?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "What perspective is the image taken from?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Dónde están las sillas vacías?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What text is visible in the photo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes encontrar la escalera?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where are the cutlery items?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What kind of environment is it?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué animales viven en la Antártida?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you decipher the letters on the notice?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes contarme qué sucede en la imagen y qué palabras aparecen?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Dónde están los cubos de basura?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What does the picture show and what do the signs read?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Play my favorite playlist.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes leer la inscripción en la placa?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What is happening in the picture?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Is there a green bicycle visible?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué dice el anuncio publicitario?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde está el coche rojo?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What is the weather like in this image?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué dice la hoja que está sobre la mesa?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes decirme qué representa la imagen y leer lo que pone en los rótulos?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes describir lo que aparece?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Dónde están los cojines?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde está el televisor?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué está pasando en la imagen y qué palabras se pueden leer?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué detalles puedes observar en el entorno?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Dime lo que no sabes.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me what’s in the room and where the computer is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Cuántas sillas están ocupadas?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué tipo de escena es esta?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you see what's going on and read the words on it?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Where are the sunglasses?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Hay una planta en una maceta grande?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe la imagen y señala dónde está la lámpara.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué pone en el letrero de la puerta?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué elementos se encuentran en primer plano?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What are the main features in the image?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Cuántos coches están en la calle?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you describe the scene and read the visible text?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Give me a motivational quote.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you find the mobile phone?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Quiero saber qué ocurre en la imagen y qué palabras contiene.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Haz una metáfora sobre la vida.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What is written on the warning label and where can I find it?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Where is the traffic sign and what does it say?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué países conforman Escandinavia?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Dónde está la mochila que tiene el nombre del colegio?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué muestra la imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Dónde está el folleto que tiene letras grandes y qué pone en él?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Cómo es el paisaje?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Podrías leer el contenido del cartel luminoso?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde está el cartel del supermercado y qué información tiene?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué palabras hay en la señal?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué información textual tiene el folleto?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué mensaje aparece en el monitor y qué objeto está junto a él?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Who just entered the room?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué personas se ven y qué texto hay alrededor?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué hay escrito en el diploma y dónde está colocado?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Where is the television?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What words can you read in this photo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What time is it now?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué es el cambio climático?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Es esta voz de Pedro?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What information is on the product label?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Can you describe the atmosphere?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Quién escribió Don Quijote?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes localizar el cargador del móvil?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes ver qué sucede y leer cualquier cartel que esté visible?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Can you tell me about the surroundings?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes leer lo que hay en la pantalla?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Tell me the steps to make pancakes.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What does the written signage say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What does the phone screen show and where is it located?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes ver una escalera de mano?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What words appear in the photo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What's written on the wall?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Ábreme WhatsApp.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me the visual details and any readable information.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Can you locate the large painting on the wall?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes encontrar la caja y leer el texto que tiene impreso?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Dónde está la papelera?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Tell me what it feels like.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué texto hay en la etiqueta adhesiva?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué aparece en el rótulo luminoso?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Can you read the inscription on the sign?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Is there a door visible in the image?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué dice el menú del restaurante y dónde está colocado?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes localizar la lámpara?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is this a peaceful or busy scene?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué objetos principales se ven?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Is there any movement in the scene?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you read the text appearing on the cover?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What message is displayed on the screen and where is the screen located?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Where are the headphones?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Dime qué aparece y si hay algo escrito en algún lugar.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Give me the recipe for chocolate cake.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Hay algún ordenador visible?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué personas aparecen y qué hacen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Read me the news headlines.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where are the sports shoes?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is it sunny outside?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué se puede leer en el ticket?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where is the book with writing and what does it say on the page?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes definir la palabra 'resiliencia'?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué pone en el cartel luminoso y en qué parte de la imagen está?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Will it snow tomorrow?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué pone en el cartel?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Tell me what is visible and where the red book is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué pone en el papel pegado a la pared y dónde está ubicado?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Can you sing a song for me?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Describe the people and things, and also read any text.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué tipo de paisaje se muestra?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What does the traffic sign say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Hay una bicicleta?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you hear that sound?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes localizar una chaqueta?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe the picture and point out the dog leash.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué texto tiene el volante?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "How many plates are on the table?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What emotions does the scene convey?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you locate the computer mouse?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes describir la imagen y leer lo que pone?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What does the sign say and where is the bicycle?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Me puedes leer un poema de Neruda?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What’s in the scene and where is the window located?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What is the capital city of Canada?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes encontrar la caja de herramientas?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What message is on the monitor and what object is next to it?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "What can you see and read on the screen?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué objetos hay y dónde está la taza en la escena?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué se percibe en la imagen y dónde está el gato blanco?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Are there people in the image? What are they doing?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you describe what's happening and read any written text?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Describe la situación y dime dónde aparece el cartel.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Qué dice el texto que aparece en la imagen?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes enseñarme a tocar la guitarra?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué hay en el fondo?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you read the poster and show me where the red car is?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué dice la portada del folleto?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What is written on the notice?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué hay en la foto?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué texto aparece en el cartel de la tienda?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Me puedes decir lo que ves en la imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What does the sheet on the table say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué texto hay en la pantalla del dispositivo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Do you know how I feel today?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where is the ceiling lamp?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué está escrito en la hoja?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Dónde está la alfombra roja?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is a traffic light visible?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes hacer un resumen de este libro?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Cuántas calorías tiene una manzana?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What text can be seen on the digital sign?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué tiempo hace en Madrid?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you locate the phone charger?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Es una escena interior o exterior?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What is written in the picture?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué sensación provoca esta imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Hay personas en la imagen? ¿Qué hacen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes decirme qué texto contiene el póster?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué ves en la foto? ¿Se puede leer algo?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Is there a soccer ball in the picture?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Tell me the general scene and show me where the curtain is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What text is on the adhesive label?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Haz algo creativo.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me what's shown and if there's anything written.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Open the YouTube app.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Cuántas mochilas hay en la entrada?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What does the whiteboard show and where is it in the room?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "What information appears in the document?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué colores predominan en la imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What does the sticker say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What appears in the image and what can be read?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes contarme lo que sucede en esta foto?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Tell me what’s around and where the bed is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Tell me what’s happening and if you can read something.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Cuéntame qué hay en la foto y si ves algún texto.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What does the note say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Hay algún alimento en la foto?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Tell me the rules of chess.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where is the fan switch?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is there a microwave in the picture?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes leer las letras del rótulo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where are the cushions?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde está el cartel de advertencia y qué dice exactamente?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Can you give me directions to the train station?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué día es hoy?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What's visible in the image and what words are shown?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué sucede en esta imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes ser más humano?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What information is on the neon sign?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Describe the image and read any visible signs.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Describe what’s going on and where the child is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Puedes leer la inscripción del cartel?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What’s the setting like?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Hay un microondas en la imagen?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Está encendida la televisión?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What feeling does this image evoke?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Cómo se juega al sudoku?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Can you find the stairs?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes encontrar el ventilador de pie?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cómo se dice ‘gracias’ en japonés?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué ves?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "How many backpacks are in the entrance?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Recuérdame llamar al médico mañana.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Explícame la imagen y dime qué información escrita contiene.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Cuál es el país más grande del mundo?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "How many people are there and what does the banner behind them say?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué aparece escrito en el aviso?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes leer el texto en el envase?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué ambiente se percibe en la foto y dónde está la silla?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What text appears on the digital menu?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What elements are present and what is written on them?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Play a relaxing sound.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Does the scene look natural or artificial?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Cómo es la escena?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you tell me what’s written on the receipt?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cómo me llamo?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Dónde están las toallas colgadas?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where is the refrigerator?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What’s in the background?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Where are the car keys?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What colors dominate the image?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué hay en la escena y qué texto se puede leer?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Can you see any ball on the floor?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What’s happening overall?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What elements are in the foreground?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What’s the situation in the image and what does the text say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes ver un libro abierto?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cuál es el sinónimo de ‘rápido’?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where is the remote control?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué información está escrita en el papel?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Where are my glasses?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What’s written on the name tag and where is the person wearing it?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes describirme lo que ocurre y localizar el coche azul?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you see a stepladder?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is it a crowded place?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué texto aparece en la caja y dónde está esa caja?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Qué sabor tiene este plato?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Hazme una pregunta de cultura general.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Quién descubrió la penicilina?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me about the space and where the person with red clothes is.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you explain the scene to me?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Puedes explicarme qué se ve en la imagen y en qué lugar está la puerta?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Is there a bicycle?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué hay escrito en la hoja impresa?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Do you see any plants in the room?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where are the towels hanging?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where are the high-heeled shoes?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué se puede observar en la imagen y qué pone en los elementos textuales?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What does the bus stop sign say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What is in the background and what does the board say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Se puede ver una puerta en la imagen?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué información hay en el cartel luminoso?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué representa la escena y qué contenido textual aparece?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué hay en la imagen y qué información escrita se puede extraer?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Qué ocurre en la habitación y dónde está el teléfono móvil?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "¿Está lloviendo ahora?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What is written on the package label and where is the package?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Is there a bag on the chair?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is it daytime or nighttime?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Cómo se escribe 'camión' en inglés?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What’s written on the bottle label and where is the bottle?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Is the phone vibrating?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Do you see any animals?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where is the air conditioner remote?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Do you see a cat?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué palabras se pueden leer en esta fotografía?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Hay un semáforo visible?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué necesito para cocinar paella?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What impression does the image give?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What can be read on the ticket?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué dice la etiqueta de la botella y dónde está colocada?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "What are the main objects visible?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "What text appears on the old sign?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What does the restaurant sign say and where is it hanging?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Cuántas personas hay y qué dice el letrero al fondo?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Tell me a story about a dragon.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where is the door with the exit sign?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Dónde está el mando a distancia?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Puedes decir qué aparece escrito en la pantalla del cajero y dónde está?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Dónde están mis gafas?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Where is the container with writing and what does it say?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Puedes interpretar la foto y leer los textos presentes?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Where can I find the red book?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you tell me what's in the photo and what the labels say?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes describir la escena y decirme dónde están las llaves?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "What is the square root of 144?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Tell me how to tie a tie.", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "Where are the trash bins?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Cuál es la capital de Australia?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes leer el letrero?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Can you describe the atmosphere around?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Se ve una bicicleta estacionada?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What does the door sign say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes leer lo que dice el letrero de neón?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cuántas maletas hay en la imagen?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Describe la escena y menciona cualquier texto que se lea.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Se puede identificar algún objeto relevante?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Can you read the letters on the signboard?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes analizar lo que se ve y leer cualquier texto presente?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Is there a sign on the door?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What’s the meaning of life?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Qué pone en el menú del restaurante?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "Describe lo que está pasando.", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué palabras hay en el libro abierto y dónde está ese libro?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "Tell me what you see in the image and what any writing says.", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "What text does the document show?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué está ocurriendo y qué dice el cartel de la derecha?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "¿Puedes descifrar el texto en esta imagen?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Qué significa la palabra 'epistemología'?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes leer la señal del autobús y decirme dónde está ubicada?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Cuántas personas hay en la imagen?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Is there an open box on the table?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué es un algoritmo?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What does the glowing sign say and where is it in the image?", "response": "{\"tools\": [\"ocr\", \"object_detection\"], \"justification\": \"Se requiere leer texto y localizar un objeto específico.\"}"}
+{"input": "¿Cuál es el símbolo químico del oro?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Cuántos relojes hay en la habitación?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you read what the cash register says?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cómo es el clima en esta imagen?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Describe qué se ve en la imagen y dónde está la lámpara de pie.", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "How many books are on the table?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you explain the photo and also read the text?", "response": "{\"tools\": [\"describe_scene\", \"ocr\"], \"justification\": \"La petición implica describir la escena y leer texto visible.\"}"}
+{"input": "Is there a black cat in the image?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "What message is on the advertising banner?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cuál es la previsión meteorológica de hoy?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "What does the image show?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "Where is the wooden table?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Qué dice el anuncio en la fachada?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What does the label say?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Puedes leer el contenido del cartel informativo?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "What does the scene show and where is the book?", "response": "{\"tools\": [\"describe_scene\", \"object_detection\"], \"justification\": \"La petición implica describir la escena y localizar un objeto específico.\"}"}
+{"input": "Can you tell me what text the poster contains?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cómo puedo aprender a meditar?", "response": "{\"tools\": [\"None\"], \"justification\": \"La petición no puede resolverse con las herramientas disponibles.\"}"}
+{"input": "¿Puedes encontrar la silla?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "¿Dónde está el interruptor del ventilador?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you find the chair?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}
+{"input": "Can you tell me what is happening in this photo?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿La escena parece natural o artificial?", "response": "{\"tools\": [\"describe_scene\"], \"justification\": \"La petición requiere una descripción general de la escena.\"}"}
+{"input": "¿Qué texto muestra el documento?", "response": "{\"tools\": [\"ocr\"], \"justification\": \"La petición requiere leer texto visible en la imagen.\"}"}
+{"input": "¿Cuántos teléfonos hay sobre la mesa?", "response": "{\"tools\": [\"object_detection\"], \"justification\": \"La petición requiere localizar o contar objetos específicos.\"}"}

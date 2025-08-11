@@ -1,4 +1,38 @@
-# ----------------------------- Dockerfile -----------------------------
-# Define un entorno reproducible para el despliegue del agente multimodal. 
-# Instala dependencias necesarias y configura el entorno para ejecutar el 
-# modelo de forma portable en HuggingFace Spaces o servidores compatibles.
+# Usa Python base oficial
+FROM python:3.10-slim
+
+# Instala dependencias necesarias del sistema
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    curl \
+    wget \
+    libopenblas-dev \
+    libssl-dev \
+    libffi-dev \
+    libstdc++6 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crea el directorio de trabajo
+WORKDIR /app
+
+# Copia los archivos de requirements
+COPY requirements.txt .
+
+# Instala las dependencias de Python
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# ✅ Instala Jupyter Notebook
+RUN pip install notebook
+
+# Copia el resto del código del proyecto (opcional si todo está montado por volumen)
+COPY . .
+
+# Expone el puerto de Jupyter
+EXPOSE 8888
+
+# Comando por defecto (opcional si prefieres ejecutar tú el notebook)
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--NotebookApp.token="]
