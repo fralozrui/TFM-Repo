@@ -4,42 +4,18 @@ Contiene la estructura de decisión basada en el LLM orquestador que dirige cada
 """
 import json
 import re
+import os
+import sys
 from typing import Dict, Any
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 from typing import TypedDict, Annotated, Literal, Dict, Any, List
 from pydantic import BaseModel
 from langgraph.graph.message import add_messages
-import google.generativeai as genai
-from google.colab import userdata
-from Nodes.ocr_extractor import tool_ocr
-from Nodes.object_localizer import tool_object_detection
-from Nodes.scene_description import tool_describe_scene
+# from google.colab import userdata
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from Agent.orchestrator_keys import OrchestratorState, model_gemini
 from Agent.nodes import security_node, orchestrator_node, tools_node, response_node, validator_node, error_handler_node
-# Configuración Gemini
-genai.configure(api_key = userdata.get('GOOGLE_API_KEY'))
-model_gemini = genai.GenerativeModel("gemini-2.5-flash")
-
-class OrchestratorState(TypedDict, total=False):
-    user_input: str         
-    img: bool                
-    malprompt: bool         
-    attempts: int           
-    tools: List[str]         
-    justification: str       
-    tool_outputs: Dict[str, Any]  
-    final_response: str      
-    pending_error: bool
-    validated: bool
-    val_just: str
-    error_history: Annotated[List[str], add_messages]
-    messages: Annotated[List[BaseMessage], add_messages]
-    
-TOOLS = {
-    "ocr": tool_ocr,
-    "object_detection": tool_object_detection,
-    "describe_scene": tool_describe_scene
-}
 
 # --- Routing ---
 def route_from_orchestrator(state: OrchestratorState) -> str:
@@ -97,3 +73,27 @@ workflow.add_conditional_edges("error_handler", route_from_error_handler,
     {"orchestrator": "orchestrator", END: END})
 
 agent = workflow.compile()
+
+# Estado inicial
+init_state = {
+    "user_input": "¿Qué pone en el cartel?",
+    "img": True,
+    "malprompt": False,
+    "attempts": 0,
+    "tools": [],
+    "justification": "",
+    "tool_outputs": {},
+    "final_response": "",
+    "error_history": [],
+    "messages": []
+}
+
+# Ejecutamos el grafo
+result = agent.invoke(init_state)
+
+print("\n--- RESULTADO FINAL ---")
+print(result["final_response"])
+
+print("\n--- HISTORIAL DE MENSAJES ---")
+for msg in result["messages"]:
+    print(f"[{msg.type.upper()}] {msg.content}")

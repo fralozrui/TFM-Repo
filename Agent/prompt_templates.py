@@ -2,7 +2,8 @@
 Contiene las plantillas de prompt que utiliza el LLM orquestador para decidir a qué nodo enviar cada entrada,
 según el contenido y la intención detectada en la conversación.
 """
-from orchestrator import OrchestratorState, TOOLS
+from orchestrator_keys import OrchestratorState
+from Nodes.utils_models import TOOLS
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 
 def security_prompt(state: OrchestratorState) -> str:
