@@ -5,6 +5,7 @@ from typing import TypedDict, Annotated, Literal, Dict, Any, List
 from pydantic import BaseModel
 from langgraph.graph.message import add_messages
 import google.generativeai as genai
+import pandas as pd
 
 class OrchestratorState(TypedDict, total=False):
     user_input: str         
@@ -20,7 +21,10 @@ class OrchestratorState(TypedDict, total=False):
     val_just: str
     error_history: Annotated[List[str], add_messages]
     messages: Annotated[List[BaseMessage], add_messages]
-    
+    session_id: str             
+    created_at: str              # ISO8601 UTC
+    expires_at: str              # ISO8601 UTC
+
 # Configuración Gemini
 genai.configure(api_key = 'AIzaSyDYfdOJUzU1WZJnIDYXkEQF5NmdP1OwnyQ')
 # genai.configure(api_key = userdata.get('GOOGLE_API_KEY'))
