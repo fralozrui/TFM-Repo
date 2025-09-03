@@ -1,0 +1,75 @@
+{
+  "TestId": {
+    "user_input": "Perdón, me refería a si me podrías decir qué pone en la carta.",
+    "img": true,
+    "malprompt": false,
+    "attempts": 0,
+    "tools": [
+      "ocr"
+    ],
+    "justification": "Se necesita leer texto de una imagen para responder a la pregunta.",
+    "tool_outputs": {},
+    "final_response": "Disculpa, no puedo decirte qué pone en la carta porque no he recibido ninguna información del contenido de la imagen que has adjuntado. ¿Te gustaría intentarlo de nuevo o quizás la imagen no era lo suficientemente clara?",
+    "pending_error": false,
+    "validated": true,
+    "val_just": "Aunque no puede leer la carta, el sistema explica claramente el motivo (falta de información del OCR) y ofrece una solución, demostrando que entendió la intención del usuario y la herramienta a usar.",
+    "messages": [
+      {
+        "role": "human",
+        "content": "¿Qué pone en el cartel?"
+      },
+      {
+        "role": "ai",
+        "content": "f'[Orchestrator] Tools: ['ocr'], Justification: La pregunta pide leer texto en un cartel, para lo cual OCR es la herramienta adecuada."
+      },
+      {
+        "role": "ai",
+        "content": "[Tools] Herramientas a ejecutar: {\"ocr\": \"Texto detectado: 'Ejemplo en cartel'\"}"
+      },
+      {
+        "role": "ai",
+        "content": "Lo siento, no he podido encontrar ninguna información sobre lo que pone en el cartel con la imagen que me has enviado. ¿Quizás podrías reformular la pregunta o indicarme si hay algo más que te interese saber?"
+      },
+      {
+        "role": "human",
+        "content": "Perdón, me refería a si me podrías decir qué pone en la carta."
+      },
+      {
+        "role": "ai",
+        "content": "f'[Orchestrator] Tools: ['ocr'], Justification: Se necesita leer texto de una imagen para responder a la pregunta."
+      },
+      {
+        "role": "ai",
+        "content": "[Tools] Herramientas a ejecutar: {\"ocr\": \"Texto detectado: 'Ejemplo en cartel'\"}"
+      },
+      {
+        "role": "ai",
+        "content": "Disculpa, no puedo decirte qué pone en la carta porque no he recibido ninguna información del contenido de la imagen que has adjuntado. ¿Te gustaría intentarlo de nuevo o quizás la imagen no era lo suficientemente clara?"
+      }
+    ],
+    "error_history": [],
+    "created_at": "2025-09-03T12:00:00Z",
+    "session_id": "TestId",
+    "img_base64": null
+  },
+  "2b2898eb-fe08-4782-8667-6be22e58e35a": {
+    "attempts": 0,
+    "tools": [
+      "ocr"
+    ],
+    "justification": "La petición busca leer texto en un cartel, para lo cual ocr es la herramienta adecuada.",
+    "tool_outputs": {},
+    "final_response": "Hola. Veo que me has preguntado qué pone en el cartel, pero no he podido detectar ningún texto en la imagen que me has enviado. ¿Hay algo más en lo que pueda ayudarte?",
+    "pending_error": false,
+    "validated": true,
+    "val_just": "La respuesta es adecuada porque explica claramente por qué no pudo detectar texto en la imagen tras usar la herramienta OCR, que era la correcta para la petición del usuario.",
+    "error_history": [],
+    "messages": [
+      "{'role': 'human', 'content': '¿Qué pone en el cartel?'}",
+      "{'role': 'ai', 'content': \"f'[Orchestrator] Tools: ['ocr'], Justification: La petición busca leer texto en un cartel, para lo cual ocr es la herramienta adecuada.\"}",
+      "{'role': 'ai', 'content': '[Tools] Herramientas a ejecutar: {\"ocr\": \"Texto detectado: \\'Ejemplo en cartel\\'\"}'}",
+      "{'role': 'ai', 'content': 'Hola. Veo que me has preguntado qué pone en el cartel, pero no he podido detectar ningún texto en la imagen que me has enviado. ¿Hay algo más en lo que pueda ayudarte?'}"
+    ],
+    "created_at": "2025-09-03T17:30:40.009629Z"
+  }
+}

@@ -2,7 +2,7 @@
 Contiene las plantillas de prompt que utiliza el LLM orquestador para decidir a qué nodo enviar cada entrada,
 según el contenido y la intención detectada en la conversación.
 """
-from orchestrator_keys import OrchestratorState
+from Agent.orchestrator_keys import OrchestratorState
 from Nodes.utils_models import TOOLS
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 
@@ -27,7 +27,6 @@ def orchestrator_prompt(state: OrchestratorState) -> str:
             user_input = message.content
             break
     tool_list = ", ".join(TOOLS.keys())
-    attempts = state.get("attempts", 0)
     error = state.get("error_history", "")
     promt_error = f"""Este es un reintento del orquestador porque ha surgido el siguiente error en algún punto de la anterior ejecución del pipeline:
                      {error}""" if error else ""

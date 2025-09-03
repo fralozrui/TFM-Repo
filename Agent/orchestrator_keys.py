@@ -1,7 +1,7 @@
 from typing import Dict, Any
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
-from typing import TypedDict, Annotated, Literal, Dict, Any, List
+from typing_extensions import TypedDict, Annotated, Literal, Dict, Any, List
 from pydantic import BaseModel
 from langgraph.graph.message import add_messages
 import google.generativeai as genai
@@ -23,7 +23,6 @@ class OrchestratorState(TypedDict, total=False):
     messages: Annotated[List[BaseMessage], add_messages]
     session_id: str             
     created_at: str              # ISO8601 UTC
-    expires_at: str              # ISO8601 UTC
 
 # Configuración Gemini
 genai.configure(api_key = 'AIzaSyDYfdOJUzU1WZJnIDYXkEQF5NmdP1OwnyQ')

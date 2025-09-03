@@ -1,14 +1,14 @@
 from Agent.orchestrator_keys import OrchestratorState, model_gemini
 from Nodes.utils_models import TOOLS
 import json
-from prompt_templates import (
+from Agent.prompt_templates import (
                                 orchestrator_prompt,
                                 responder_prompt,
                                 security_prompt,
                                 validator_prompt,
                                 fallback_prompt
                                 )
-from safe_parse import safe_orchestrator_parse, safe_validator_parse
+from Agent.safe_parse import safe_orchestrator_parse, safe_validator_parse
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 from langgraph.graph import StateGraph, END
 
@@ -29,7 +29,6 @@ def security_node(state: OrchestratorState) -> OrchestratorState:
 def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
     print('-) Executing orchestrator node')
     user_input = state["user_input"]
-    tools_available = list(TOOLS.keys())
 
     prompt = orchestrator_prompt(state)
     response = model_gemini.generate_content(prompt)
@@ -39,7 +38,7 @@ def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
         parsed = safe_orchestrator_parse(text, True)
         state['tools'] = parsed.get("tools", [])
         state['justification'] = parsed.get("justification", "")
-        state['messages'] = state.get("messages", []) + [HumanMessage(content=user_input), AIMessage(content=f"f'[Orchestrator] Tools: {parsed.get('tools', [])}, Justification: {parsed.get('justification', '')}")
+        state['messages'] = state.get("messages", []) + [AIMessage(content=f"f'[Orchestrator] Tools: {parsed.get('tools', [])}, Justification: {parsed.get('justification', '')}")
 ]
 
     except Exception as e:

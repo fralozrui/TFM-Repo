@@ -9,7 +9,6 @@ import sys
 from typing import Dict, Any
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
-from typing import TypedDict, Annotated, Literal, Dict, Any, List
 from pydantic import BaseModel
 from langgraph.graph.message import add_messages
 # from google.colab import userdata
@@ -74,26 +73,26 @@ workflow.add_conditional_edges("error_handler", route_from_error_handler,
 
 agent = workflow.compile()
 
-# Estado inicial
-init_state = {
-    "user_input": "¿Qué pone en el cartel?",
-    "img": True,
-    "malprompt": False,
-    "attempts": 0,
-    "tools": [],
-    "justification": "",
-    "tool_outputs": {},
-    "final_response": "",
-    "error_history": [],
-    "messages": []
-}
+# # Estado inicial
+# init_state = {
+#     "user_input": "¿Qué pone en el cartel?",
+#     "img": True,
+#     "malprompt": False,
+#     "attempts": 0,
+#     "tools": [],
+#     "justification": "",
+#     "tool_outputs": {},
+#     "final_response": "",
+#     "error_history": [],
+#     "messages": []
+# }
 
-# Ejecutamos el grafo
-result = agent.invoke(init_state)
+# # Ejecutamos el grafo
+# result = agent.invoke(init_state)
 
-print("\n--- RESULTADO FINAL ---")
-print(result["final_response"])
+# print("\n--- RESULTADO FINAL ---")
+# print(result["final_response"])
 
-print("\n--- HISTORIAL DE MENSAJES ---")
-for msg in result["messages"]:
-    print(f"[{msg.type.upper()}] {msg.content}")
+# print("\n--- HISTORIAL DE MENSAJES ---")
+# for msg in result["messages"]:
+#     print(f"[{msg.type.upper()}] {msg.content}")
