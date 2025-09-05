@@ -1,7 +1,10 @@
+# modelo.py
 from PIL import Image
 import torch
 import sys
 from transformers import AutoProcessor, GitForCausalLM
+import io
+import base64
 
 # Forzar CPU
 device = torch.device("cpu")
@@ -10,8 +13,17 @@ model_name = "microsoft/git-base"
 processor = AutoProcessor.from_pretrained(model_name)
 model = GitForCausalLM.from_pretrained(model_name).to(device)
 
-def generar_caption(path_imagen):
-    image = Image.open(path_imagen).convert("RGB")
+def generar_caption(input_data: str, is_base64: bool = False):
+    """
+    input_data: ruta de imagen o string base64
+    is_base64: True si input_data es base64, False si es ruta
+    """
+    if is_base64:
+        import base64, io
+        img_bytes = base64.b64decode(input_data)
+        image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+    else:
+        image = Image.open(input_data).convert("RGB")
     inputs = processor(images=image, return_tensors="pt").to(device)
 
     with torch.no_grad():
@@ -20,7 +32,7 @@ def generar_caption(path_imagen):
             max_length=100,
             do_sample=True,
             top_p=0.95,
-            temperature=1.1, #Lo estoy dejando así para que sea más creativo pero se puede cambiar
+            temperature=1.1,
             num_return_sequences=1,
             pad_token_id=model.config.pad_token_id
         )
