@@ -8,17 +8,22 @@ import os
 import json
 import uuid
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Optional, Dict, Any
 from typing_extensions import TypedDict
-from fastapi import FastAPI, HTTPException, Header, Request, APIRouter
+from fastapi import FastAPI, HTTPException, Header, APIRouter, UploadFile
+import base64
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
-from Agent.orchestrator import agent 
+from Agent.orchestrator import agent, orchestrator_node, tools_node
 from Agent.orchestrator_keys import OrchestratorState
 
-entorno = "local"
+# Detectar entorno
 entorno = os.getenv("ENV", "local")
+
+# --------------------------
+# Rama CLOUD (GCP / no local)
+# --------------------------
 if entorno != "local":
     # Logging
     logging.basicConfig(level=logging.INFO)
@@ -26,8 +31,8 @@ if entorno != "local":
 
     # Config
     from google.cloud import secretmanager, firestore
-    PROJECT_ID = os.environ.get("GCP_PROJECT")  # Cloud Run env var
-    API_KEY_SECRET_NAME = os.environ.get("API_KEY_SECRET_NAME")  # secret name in Secret Manager
+    PROJECT_ID = os.environ.get("GCP_PROJECT")  
+    API_KEY_SECRET_NAME = os.environ.get("API_KEY_SECRET_NAME")  
     FIRESTORE_COLLECTION = os.environ.get("FIRESTORE_COLLECTION", "sessions")
 
     # Initialize clients
@@ -90,11 +95,11 @@ if entorno != "local":
         doc_ref.set(state_copy, merge=True)
 
     # --- API definition ---
-    app = APIRouter()
+    app = FastAPI()
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # Cambiar a dominio frontend en prod
+        allow_origins=["*"],  # Cambiar en producción
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -115,6 +120,7 @@ if entorno != "local":
             raise HTTPException(status_code=401, detail="Invalid API key")
 
         # 2) Load or create session
+        session = {}
         if req.session_id:
             session = load_session(req.session_id)
             if not session:
@@ -126,9 +132,21 @@ if entorno != "local":
             session_id, session = create_session(req.dict())
 
         # 3) Build init_state for LangGraph
+        img_base64 = session.get("img_base64") or req.img_base64
+        img_input = None
+        is_base64 = False
+
+        if img_base64:
+            img_input = img_base64
+            is_base64 = True
+        elif session.get("img") and isinstance(session.get("img"), (str, bytes)):
+            img_input = session.get("img")
+            is_base64 = False
+
         init_state = {
-            "user_input": session.get("user_input", ""),
-            "img": session.get("img", False),
+            "user_input": session.get("user_input", req.user_input),
+            "img_base64": img_base64,
+            "img": img_input,
             "malprompt": False,
             "attempts": session.get("attempts", 0),
             "tools": session.get("tools", []),
@@ -142,6 +160,12 @@ if entorno != "local":
             "messages": session.get("messages", []),
             "created_at": session.get("created_at", datetime.utcnow().isoformat() + "Z"),
         }
+
+
+        # --- Depuración ---
+        print("DEBUG INIT STATE img:", init_state.get("img"))
+        print("DEBUG INIT STATE img_base64:", "sí" if init_state.get("img_base64") else "no")
+        print("DEBUG INIT STATE user_input:", init_state.get("user_input"))
 
         if init_state["user_input"]:
             from langchain_core.messages import HumanMessage
@@ -180,22 +204,24 @@ if entorno != "local":
                 }
             }
 
-else: 
-    # FastAPI app
-    app = APIRouter()
+# --------------------------
+# Rama LOCAL
+# --------------------------
+else:
+    logger = logging.getLogger("orchestrator-local")
+
+    # --- API definition ---
+    app = FastAPI()
+    router = APIRouter()
 
     # Cargar base de datos desde archivo JSON
-    import json
-
-    DATABASE_PATH = fr"Pruebas\Database\Database_v1.json"
-
-    # Si el archivo existe, cargarlo; si no, inicializar base vacía
+    DATABASE_PATH = r"Pruebas\Database\Database_v1.json"
     try:
         with open(DATABASE_PATH, "r", encoding="utf-8") as f:
             Database_v1 = json.load(f)
     except FileNotFoundError:
         Database_v1 = {}
-        
+
     def serialize_messages(messages):
         serialized = []
         for msg in messages:
@@ -224,7 +250,7 @@ else:
     def create_session(initial_payload: Dict[str, Any]) -> str:
         session_id = str(uuid.uuid4())
         data = {
-            session_id:{
+            session_id: {
                 "user_input": initial_payload.get("user_input", ""),
                 "img": initial_payload.get("img", False),
                 "messages": initial_payload.get("messages", []),
@@ -234,7 +260,7 @@ else:
         return session_id, data
 
     def load_session(session_id: str) -> Dict[str, Any]:
-        if not session_id in Database_v1.keys():
+        if session_id not in Database_v1.keys():
             return {}
         return Database_v1[session_id]
 
@@ -243,20 +269,17 @@ else:
             Database_v1[session_id].update(state)
         else:
             Database_v1[session_id] = state
-            
-    class OrchestratorRequest(TypedDict, total = False):
-        session_id: Optional[str] = None
-        user_input: str
-        img: Optional[bool] = False
-        img_base64: Optional[str] = None
-        messages: Optional[list] = []
-        
-    # API endpoint
-    @app.post("/orchestrate")
-    async def orchestrate(req: OrchestratorRequest, x_api_key: Optional[str] = Header(None)):
 
-        # 2) Load or create session
-        session_id = req['session_id']
+    class OrchestratorRequest(TypedDict, total=False):
+        session_id: Optional[str]
+        user_input: str
+        img: Optional[bool]
+        img_base64: Optional[str]
+        messages: Optional[list]
+
+    @router.post("/orchestrate")
+    async def orchestrate(req: OrchestratorRequest, x_api_key: Optional[str] = Header(None)):
+        session_id = req.get("session_id")
         if session_id:
             session = load_session(session_id)
             session.update(req) 
@@ -264,15 +287,27 @@ else:
                 # start fresh if not found
                 session_id, created_session = create_session(req)
                 session = created_session[session_id]
+            else:
+                session.update(req)
         else:
-            session_id, created_session  = create_session(req)
+            session_id, created_session = create_session(req)
             session = created_session[session_id]
-        
 
-        # Build initial state for langgraph app
+        img_base64 = session.get("img_base64") or req.get("img_base64")
+        img_input = None
+        is_base64 = False
+
+        if img_base64:
+            img_input = img_base64
+            is_base64 = True
+        elif session.get("img") and isinstance(session.get("img"), (str, bytes)):
+            img_input = session.get("img")
+            is_base64 = False
+
         init_state = {
-            "user_input": session.get("user_input",""),
-            "img": session.get("img",False),
+            "user_input": session.get("user_input", req.get("user_input", "")),
+            "img_base64": img_base64,
+            "img": img_input,
             "malprompt": False,
             "attempts": session.get("attempts", 0),
             "tools": session.get("tools", []),
@@ -284,8 +319,13 @@ else:
             "val_just": session.get("val_just", ""),
             "error_history": session.get("error_history", []),
             "messages": session.get("messages", []),
-            "created_at": session.get("created_at", datetime.utcnow().isoformat() + "Z")
+            "created_at": session.get("created_at", datetime.utcnow().isoformat() + "Z"),
         }
+        # --- Depuración ---
+        print("DEBUG INIT STATE img:", init_state.get("img"))
+        print("DEBUG INIT STATE img_base64:", "sí" if init_state.get("img_base64") else "no")
+        print("DEBUG INIT STATE user_input:", init_state.get("user_input"))
+
         if init_state["user_input"]:
             # Optionally append the user message to messages (so prompts can see history)
             from langchain_core.messages import HumanMessage
@@ -297,13 +337,12 @@ else:
             except Exception as e:
                 logger.exception("LangGraph invocation failed")
                 raise HTTPException(status_code=500, detail=str(e))
-            
-            # 4) Persist session state (only the fields you want)
+
             save_session(session_id, {
                 "user_input": init_state["user_input"],
                 "img": result.get("img", False),
                 "malprompt": result.get("malprompt", False),
-                "attempts": result.get("attempts", 0),                
+                "attempts": result.get("attempts", 0),
                 "tools": result.get("tools", []),
                 "justification": result.get("justification", ""),
                 "tool_outputs": result.get("tool_outputs", {}),
@@ -313,13 +352,14 @@ else:
                 "val_just": result.get("val_just", ""),
                 "error_history": result.get("error_history", []),
                 "messages": result.get("messages", []),
-                "created_at": result.get("created_at", datetime.utcnow().isoformat() + "Z")
+                "created_at": result.get("created_at", datetime.utcnow().isoformat() + "Z"),
             })
 
             try:
                 save_database()
             except Exception as e:
                 print(f"Error saving database: {str(e)}")
+
             return {
                 "session_id": session_id,
                 "final_response": result.get("final_response", ""),
@@ -328,3 +368,5 @@ else:
                     "val_just": result.get("val_just", "")
                 }
             }
+            
+    app.include_router(router)

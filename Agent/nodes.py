@@ -36,33 +36,59 @@ def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
     text = response.candidates[0].content.parts[0].text.strip()
     try:
         parsed = safe_orchestrator_parse(text, True)
-        state['tools'] = parsed.get("tools", [])
+        tools = parsed.get("tools", [])
+
+        if state.get("img") or state.get("img_base64"):
+            if any(w in user_input.lower() for w in ["descripción", "qué hay", "escena", "foto"]):
+                if "imagen" not in tools:
+                    tools.append("imagen")
+            elif any(w in user_input.lower() for w in ["objetos", "objetos en la foto"]):
+                if "object_detection" not in tools:
+                    tools.append("object_detection")
+            elif any(w in user_input.lower() for w in ["texto", "cartel", "letrero"]):
+                if "ocr" not in tools:
+                    tools.append("ocr")
+
+        state['tools'] = tools
         state['justification'] = parsed.get("justification", "")
-        state['messages'] = state.get("messages", []) + [AIMessage(content=f"f'[Orchestrator] Tools: {parsed.get('tools', [])}, Justification: {parsed.get('justification', '')}")
-]
+        state['messages'] = state.get("messages", []) + [
+            AIMessage(content=f"[Orchestrator] Tools: {state['tools']}, Justification: {state['justification']}")
+        ]
 
     except Exception as e:
         state['tools'] = []
         state['justification'] = f"Error parsing JSON {str(e)}"
         state['last_failed_node'] = 'orchestrator'
-        state['pending_eror'] = True
+        state['pending_error'] = True
         state['error_history'].append(f"Error parsing JSON: {str(e)}")
         state['messages'] = state.get("messages", []) + [HumanMessage(content=user_input), AIMessage(content=f'[Orchestrator] {state["justification"]}')]
+    
+    print("User input:", state["user_input"])
+    print("Tools selected:", state['tools'])
+    print("User input:", user_input)
+    print("img:", state.get("img"))
+    print("img_base64:", "sí" if state.get("img_base64") else "no")
+    print("Tools seleccionadas:", tools)
     return state
 
 # --- Tools Executor ---
 def tools_node(state: OrchestratorState) -> OrchestratorState:
     print('-) Executing tools node')
+    print("State recibido en tools_node:", state)
     try:
       outputs = {}
       for tool in state.get("tools", []):
           if tool in TOOLS:
-              result = TOOLS[tool](state)
-              print(f"[TOOL] {tool} ejecutada -> {result}")
-              outputs[tool] = result
+                result = TOOLS[tool](state)
+                print(f"[DEBUG] Resultado de la herramienta {tool}: {result}")
+                if isinstance(result, list):
+                    result = " ".join(result)
+                print(f"[TOOL] {tool} ejecutada -> {result}")
+                outputs[tool] = result
       state['tools_output'] = outputs
       state['messages'] = state.get("messages", []) + [AIMessage(content=f"[Tools] Herramientas a ejecutar: {json.dumps(outputs, ensure_ascii=False)}")]
     except Exception as e:
+        print(f"[ERROR] Error al ejecutar las herramientas: {str(e)}")
         state['tools_output'] = {}
         state['last_failed_node'] = 'tools'
         state['pending_error'] = True

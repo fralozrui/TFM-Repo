@@ -18,8 +18,11 @@ from Agent.nodes import security_node, orchestrator_node, tools_node, response_n
 
 # --- Routing ---
 def route_from_orchestrator(state: OrchestratorState) -> str:
+    print("Routing from orchestrator → pending_error:", state.get("pending_error"))
     if state.get("pending_error") and state.get("attempts", 0) < 2:
+        print("Ruteando a error_handler")
         return "error_handler"
+    print("Ruteando a tools")
     return "tools"
 
 def route_from_tools(state: OrchestratorState) -> str:
