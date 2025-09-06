@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 # ----------------------------
 # Configuración de la imagen
 # ----------------------------
-IMAGE_PATH = r"C:\Users\carlo\Downloads\descarga3.jpg"  # Cambia por tu ruta
+IMAGE_PATH = r"C:\Users\carlo\Downloads\descarga2.jpg"  # Cambia por tu ruta
 with open(IMAGE_PATH, "rb") as f:
     img_bytes = f.read()
 
@@ -23,7 +23,7 @@ img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
 # ----------------------------
 init_req = {
     "session_id": "TestId",
-    "user_input": "Hazme una descripción detallada de la foto.",
+    "user_input": "Localiza la lengua en la imagen, la tiene el perro o la persona?",
     "img_base64": img_base64_str  # base64 de la imagen
 }
 
