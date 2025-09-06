@@ -8,21 +8,22 @@ import google.generativeai as genai
 import pandas as pd
 
 class OrchestratorState(TypedDict, total=False):
-    user_input: str         
-    img: bool                
-    malprompt: bool         
-    attempts: int           
-    tools: List[str]         
-    justification: str       
-    tool_outputs: Dict[str, Any]  
-    final_response: str      
+    user_input: str
+    img: bool
+    malprompt: bool
+    attempts: int
+    tools: List[str]
+    justification: str
+    tool_outputs: Dict[str, Any]
+    final_response: str
     pending_error: bool
     validated: bool
     val_just: str
     error_history: Annotated[List[str], add_messages]
     messages: Annotated[List[BaseMessage], add_messages]
-    session_id: str             
-    created_at: str              # ISO8601 UTC
+    session_id: str
+    created_at: str
+
 
 # Configuración Gemini
 genai.configure(api_key = 'AIzaSyDYfdOJUzU1WZJnIDYXkEQF5NmdP1OwnyQ')
