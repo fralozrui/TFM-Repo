@@ -39,10 +39,10 @@ def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
         tools = parsed.get("tools", [])
 
         if state.get("img") or state.get("img_base64"):
-            if any(w in user_input.lower() for w in ["descripción", "qué hay", "escena", "foto"]):
+            if any(w in user_input.lower() for w in ["descripción", "qué hay", "qué veo", "describe", "describeme", "dime qué ves", "dime que ves", "dime qué hay", "dime que hay", "qué ves", "que ves"]):
                 if "imagen" not in tools:
                     tools.append("imagen")
-            elif any(w in user_input.lower() for w in ["objetos", "objetos en la foto"]):
+            elif any(w in user_input.lower() for w in ["objetos", "objetos en la foto", "dónde está", "donde está", "localiza", "localizar"]):
                 if "object_detection" not in tools:
                     tools.append("object_detection")
             elif any(w in user_input.lower() for w in ["texto", "cartel", "letrero"]):

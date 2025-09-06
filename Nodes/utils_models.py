@@ -13,9 +13,9 @@ def tool_modelo(img_input, is_base64=False):
     
     from PIL import Image
     from io import BytesIO
-
+    import base64
+    
     if is_base64:
-        import base64
         print("[DEBUG] Decodificando imagen base64...")
         try:
             img_bytes = base64.b64decode(img_input)
