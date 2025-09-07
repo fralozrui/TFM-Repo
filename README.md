@@ -85,7 +85,6 @@ v
 
 ## 🚀 Cómo ejecutar el proyecto
 
-1) Primero será necesario instalar las librerías adecuadas que se encuentran en el ['requirements.txt']. Para esto primero será necesario crear un entorno : 'conda create --name nombre_entorno python=3.11'. Después activamos el entorno con: 'conda create --name nombre_entorno python=3.11
-' y una vez dentro del entorno, instalamos las librerías necesarias con: 'pip install -r requirements.txt'
+1) Primero será necesario instalar las librerías adecuadas que se encuentran en el ['requirements.txt']. Para esto primero será necesario crear un entorno : 'conda create --name nombre_entorno python=3.11'. Después activamos el entorno con: 'conda activate nombre_entorno' y una vez dentro del entorno, instalamos las librerías necesarias con: 'pip install -r requirements.txt'
 
 2) Para hacer una prueba hay que: Primero activar nuestro entorno y después ejecutar el comando: 'uvicorn App.main:app --reload' desde la carpeta raíz del repositorio. En otra terminal, activamos el entorno y ejecutamos el script de pruebas ('Pruebas/API/API_Test.py') desde la carpeta Pruebas/API/ . En ese script tendremos que poner el promp (user_input) y la imagen deseados para la tarea.
