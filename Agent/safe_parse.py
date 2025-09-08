@@ -27,7 +27,7 @@ def safe_orchestrator_parse(text: str, retry: bool = True) -> Dict[str, Any]:
                 response = model_gemini.generate_content(fix_prompt)
                 return safe_orchestrator_parse(response.text, retry=False)
             else:
-                return {"tools": [], "justification": "Error parsing JSON"}
+                return {"run_tools": [], "justification": "Error parsing JSON"}
             
 def safe_validator_parse(text: str, retry: bool = True) -> Dict[str, Any]:
     cleaned = text.strip()
