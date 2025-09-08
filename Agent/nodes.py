@@ -36,7 +36,7 @@ def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
     text = response.candidates[0].content.parts[0].text.strip()
     try:
         parsed = safe_orchestrator_parse(text, True)
-        tools = parsed.get("tools", [])
+        tools = parsed.get("run_tools", [])
 
         if state.get("img") or state.get("img_base64"):
             if any(w in user_input.lower() for w in ["descripción", "qué hay", "qué veo", "describe", "describeme", "dime qué ves", "dime que ves", "dime qué hay", "dime que hay", "qué ves", "que ves"]):
@@ -77,7 +77,7 @@ def tools_node(state: OrchestratorState) -> OrchestratorState:
     print("State recibido en tools_node:", state)
     try:
       outputs = {}
-      for tool in state.get("tools", []):
+      for tool in state.get("run_tools", []):
           if tool in TOOLS:
                 result = TOOLS[tool](state)
                 print(f"[DEBUG] Resultado de la herramienta {tool}: {result}")

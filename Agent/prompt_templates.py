@@ -41,10 +41,10 @@ def orchestrator_prompt(state: OrchestratorState) -> str:
       'describe_scene': permite describir la escena general en una imagen.
       Devuelve EXCLUSIVAMENTE un JSON válido con esta estructura:
       {{
-        "tools": ["..."],
+        "run_tools": ["..."],
         "justification": "..."
       }}
-      Donde "tools" debe ser una lista con las herramientas a ejecutar en el orden que se deben ejecutar
+      Donde "run_tools" debe ser una lista con las herramientas a ejecutar en el orden que se deben ejecutar
       y "justification" es un string que justifica brevemente en una frase de menos de 15 palabras esta elección.
 
       Petición:
@@ -118,7 +118,7 @@ def validator_prompt(state: OrchestratorState) -> str:
             break
 
     final_response = state.get("final_response", "")
-    tools_executed = state.get("tools", [])
+    tools_executed = state.get("run_tools", [])
     justification = state.get("justification", "")
     context = state.get("tool_outputs", {})
 
@@ -163,7 +163,7 @@ def invalid_prompt(state: OrchestratorState) -> str:
             user_input = message.content
             break
     final_response = state.get("final_response", "")
-    tools_executed = state.get("tools", [])
+    tools_executed = state.get("run_tools", [])
     justification = state.get("justification", "")
     context = state.get("tool_outputs", {})
     return f"""Invalid response detected by the validator. The agent's response to the user query:
