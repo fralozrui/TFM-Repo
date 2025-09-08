@@ -38,7 +38,7 @@ def orchestrator_prompt(state: OrchestratorState) -> str:
 
       'ocr': permite leer texto en una imagen.
       'object_detection': permite detectar objetos concretos en una imagen.
-      'describe_scene': permite describir la escena general en una imagen.
+      'imagen': permite describir la escena general en una imagen.
       Devuelve EXCLUSIVAMENTE un JSON válido con esta estructura:
       {{
         "tools": ["..."],
