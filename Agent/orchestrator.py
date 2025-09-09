@@ -23,7 +23,7 @@ def route_from_orchestrator(state: OrchestratorState) -> str:
         print("Ruteando a error_handler")
         return "error_handler"
     print("Ruteando a tools")
-    return "run_tools"
+    return "tools"
 
 def route_from_tools(state: OrchestratorState) -> str:
     if state.get("pending_error") and state.get("attempts", 0) < 2:
@@ -54,7 +54,7 @@ workflow = StateGraph(OrchestratorState)
 
 workflow.add_node("security", security_node)
 workflow.add_node("orchestrator", orchestrator_node)
-workflow.add_node("run_tools", tools_node)
+workflow.add_node("tools", tools_node)
 workflow.add_node("response", response_node)
 workflow.add_node("validator", validator_node)
 workflow.add_node("error_handler", error_handler_node)
@@ -63,8 +63,8 @@ workflow.set_entry_point("security")
 workflow.add_edge("security", "orchestrator")
 
 workflow.add_conditional_edges("orchestrator", route_from_orchestrator,
-    {"error_handler": "error_handler", "run_tools": "run_tools"})
-workflow.add_conditional_edges("run_tools", route_from_tools,
+    {"error_handler": "error_handler", "tools": "tools"})
+workflow.add_conditional_edges("tools", route_from_tools,
     {"error_handler": "error_handler", "response": "response"})
 workflow.add_conditional_edges("response", route_from_response,
     {"error_handler": "error_handler", "validator": "validator"})
@@ -75,27 +75,3 @@ workflow.add_conditional_edges("error_handler", route_from_error_handler,
     {"orchestrator": "orchestrator", END: END})
 
 agent = workflow.compile()
-
-# # Estado inicial
-# init_state = {
-#     "user_input": "¿Qué pone en el cartel?",
-#     "img": True,
-#     "malprompt": False,
-#     "attempts": 0,
-#     "run_tools": [],
-#     "justification": "",
-#     "tool_outputs": {},
-#     "final_response": "",
-#     "error_history": [],
-#     "messages": []
-# }
-
-# # Ejecutamos el grafo
-# result = agent.invoke(init_state)
-
-# print("\n--- RESULTADO FINAL ---")
-# print(result["final_response"])
-
-# print("\n--- HISTORIAL DE MENSAJES ---")
-# for msg in result["messages"]:
-#     print(f"[{msg.type.upper()}] {msg.content}")

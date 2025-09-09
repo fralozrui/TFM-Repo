@@ -7,6 +7,7 @@ from Agent.orchestrator_keys import OrchestratorState
 from transformers import BlipProcessor, BlipForQuestionAnswering, pipeline
 from PIL import Image
 import torch, io, base64
+from Nodes.utils_models import read_img
 
 
 processor = BlipProcessor.from_pretrained("Salesforce/blip-vqa-base")
@@ -39,17 +40,25 @@ def define_location(image: Image.Image, question_es: str) -> str:
 def tool_object_detection(state: OrchestratorState) -> str:
     try:
         question_es = state.get("user_input", "")
-        img_input = state.get("img_base64") or state.get("img")
+        img_id = state.get("img_id", None)
+        if img_id is not None:
+            image = read_img(img_id)  
+        else:
+            return "[ERROR en tool_object_detection]: No se ha proporcionado img_id en el estado."
+        if image is None:
+            return "[ERROR en tool_object_detection]: No se pudo cargar la imagen con el img_id proporcionado."
+        
+        # img_input = state.get("img_base64") or state.get("img")
 
-        if not img_input:
-            return "[ERROR]: No se ha proporcionado imagen."
+        # if not img_input:
+        #     return "[ERROR]: No se ha proporcionado imagen."
 
         # Decodificar imagen
-        if state.get("img_base64"):
-            img_bytes = base64.b64decode(img_input)
-            image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
-        else:
-            image = Image.open(img_input).convert("RGB")
+        # if state.get("img_base64"):
+        #     img_bytes = base64.b64decode(img_input)
+        #     image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+        # else:
+        #     image = Image.open(img_input).convert("RGB")
 
         print("[DEBUG] Ejecutando object_localizer con pregunta:", question_es)
         respuesta = define_location(image, question_es)

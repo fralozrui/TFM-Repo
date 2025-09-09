@@ -2,6 +2,32 @@
 Define funciones comunes para cargar y ejecutar modelos compartidos entre nodos,
 como abstracciones de inferencia, carga desde HuggingFace, cacheo y gestión de dispositivos (CPU/GPU).
 """
+
+def read_img(img_id: int):
+    import os
+    import io
+    import base64
+    from PIL import Image
+    img_path = os.path.join("Pruebas", "Database", "Images", f"{img_id}.jpg")
+    if not os.path.exists(img_path):
+        return None, f"[ERROR] La imagen con ID {img_id} no existe en la ruta {img_path}."
+    try:
+        with open(img_path, "rb") as f:
+            img_bytes = f.read()
+
+        img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
+        img_bytes = base64.b64decode(img_base64_str)
+        image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+        return image
+    
+    except:
+        try:
+            image = Image.open(img_path).convert("RGB")
+            return image
+        except Exception as e:
+            return None
+
+# Diccionario TOOLS
 from Nodes.ocr_extractor import tool_ocr
 from Nodes.object_localizer import tool_object_detection
 from Nodes.scene_description import tool_describe_scene
@@ -51,11 +77,8 @@ def tool_modelo(img_input, is_base64=False):
     except Exception as e:
         print("[ERROR] Error al generar caption:", e)
         return f"Error generando caption: {e}"
-
-
-# Diccionario TOOLS
 TOOLS = {
     "ocr": tool_ocr,
     "object_detection": tool_object_detection,
-    "imagen": tool_modelo
+    "imagen": tool_describe_scene
 }

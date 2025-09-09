@@ -12,7 +12,7 @@ class OrchestratorState(TypedDict, total=False):
     img: bool
     malprompt: bool
     attempts: int
-    tools: List[str]
+    run_tools: List[str]
     justification: str
     tool_outputs: Dict[str, Any]
     final_response: str
@@ -23,6 +23,7 @@ class OrchestratorState(TypedDict, total=False):
     messages: Annotated[List[BaseMessage], add_messages]
     session_id: str
     created_at: str
+    img_id: int
 
 
 # Configuración Gemini

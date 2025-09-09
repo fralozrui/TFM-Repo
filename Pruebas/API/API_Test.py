@@ -12,7 +12,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 # ----------------------------
 # Configuración de la imagen
 # ----------------------------
-IMAGE_PATH = r"C:\Users\carlo\Downloads\descarga2.jpg"  # Cambia por tu ruta
+img_id = 2  # Cambia el ID según la imagen que quieras usar (en el frontend debería ser dinámico y crear el id)
+IMAGE_PATH = fr"Pruebas\Database\Images\{img_id}.jpg"  # Cambia por tu ruta
 with open(IMAGE_PATH, "rb") as f:
     img_bytes = f.read()
 
@@ -22,19 +23,17 @@ img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
 # Payload de la API
 # ----------------------------
 init_req = {
-    "session_id": "TestId",
-    "user_input": "Localiza la lengua en la imagen, la tiene el perro o la persona?",
-    "img_base64": img_base64_str  # base64 de la imagen
+    "session_id": None,
+    "img_id": img_id,
+    "user_input": "¿Qué se ve en la foto?",
+    "messages": []
 }
 
 # ----------------------------
 # Hacer petición POST
 # ----------------------------
 try:
-    response = requests.post(
-        url="http://127.0.0.1:8000/orchestrate",
-        json=init_req
-    )
+    response = requests.post(url="http://127.0.0.1:8000/orchestrate", json=init_req)
     response.raise_for_status()
     json_response = response.json()
     

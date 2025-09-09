@@ -49,14 +49,14 @@ def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
                 if "ocr" not in tools:
                     tools.append("ocr")
 
-        state['tools'] = tools
+        state['run_tools'] = tools
         state['justification'] = parsed.get("justification", "")
         state['messages'] = state.get("messages", []) + [
-            AIMessage(content=f"[Orchestrator] Tools: {state['tools']}, Justification: {state['justification']}")
+            AIMessage(content=f"[Orchestrator] Tools: {state['run_tools']}, Justification: {state['justification']}")
         ]
 
     except Exception as e:
-        state['tools'] = []
+        state['run_tools'] = []
         state['justification'] = f"Error parsing JSON {str(e)}"
         state['last_failed_node'] = 'orchestrator'
         state['pending_error'] = True
@@ -64,7 +64,7 @@ def orchestrator_node(state: OrchestratorState) -> OrchestratorState:
         state['messages'] = state.get("messages", []) + [HumanMessage(content=user_input), AIMessage(content=f'[Orchestrator] {state["justification"]}')]
     
     print("User input:", state["user_input"])
-    print("Tools selected:", state['tools'])
+    print("Tools selected:", state['run_tools'])
     print("User input:", user_input)
     print("img:", state.get("img"))
     print("img_base64:", "sí" if state.get("img_base64") else "no")

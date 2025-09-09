@@ -63,7 +63,7 @@ def responder_prompt(state: OrchestratorState) -> str:
     tool_outputs = state.get("tool_outputs", {})
     img = state.get("img", False)
     malprompt = state.get("malprompt", False)
-
+    context = state.get("messages", [])
     return f"""
           Eres un agente conversacional dentro de una aplicación diseñada para ayudar a personas con discapacidad visual.
           Tu tarea es generar la respuesta final para contestar al usuario basándote en el input recibido, los parámetros y el contexto de tareas previas.
@@ -71,10 +71,10 @@ def responder_prompt(state: OrchestratorState) -> str:
           Debes seguir estas reglas:
 
           1. **Tono y estilo**
-            - Sé amable, claro y empático, adaptándote al estilo del usuario (más formal o más cercano según corresponda).
+            - Sé amable, claro y empático, adaptándote al estilo del usuario (más formal o más cercano según corresponda), pero siempre manteniendo el respeto.
             - Responde siempre en el mismo idioma en el que el usuario escribió ({user_input}).
             - Usa frases naturales, sin extenderte demasiado, pero no te limites estrictamente a dos frases si necesitas un poco más para dar claridad.
-            - Evita expresiones vagas basadas en visión como “aquí” o “arriba”.
+            - Evita expresiones vagas basadas en visión como “aquí” o “arriba”, ten en cuenta que ayudas a personas con discapacidad visual y debes dar explicaciones para que ellos sean capaces de interpretar tu respuesta.
 
           2. **Parámetro img**
             - Si `img = False` y la consulta necesita una imagen, solicita al usuario que adjunte una para poder ayudarle mejor.
@@ -109,6 +109,9 @@ def responder_prompt(state: OrchestratorState) -> str:
 
           El contexto generado por las tareas previas fue:
           {tool_outputs}
+          
+          Por si lo necesitas en algún caso, el historial de mensajes ha sido:
+          {context}
           """
 def validator_prompt(state: OrchestratorState) -> str:
     user_input = ""

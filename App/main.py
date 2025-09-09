@@ -12,9 +12,10 @@ from datetime import datetime
 from typing import Optional, Dict, Any
 from typing_extensions import TypedDict
 from fastapi import FastAPI, HTTPException, Header, APIRouter, UploadFile
-import base64
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Agent.orchestrator import agent, orchestrator_node, tools_node
 from Agent.orchestrator_keys import OrchestratorState
 
@@ -70,10 +71,9 @@ if entorno != "local":
         data = {
             "session_id": session_id,
             "user_input": initial_payload.get("user_input", ""),
-            "img": initial_payload.get("img", False),
+            "img_id": initial_payload.get("img_id", False),
             "messages": initial_payload.get("messages", []),
             "created_at": datetime.utcnow().isoformat() + "Z",
-            "updated_at": firestore.SERVER_TIMESTAMP,
         }
         doc_ref.set(data)
         return session_id, data
@@ -248,11 +248,19 @@ else:
             
     # Session helpers
     def create_session(initial_payload: Dict[str, Any]) -> str:
-        session_id = str(uuid.uuid4())
+        # Genera un session_id único que no esté en la base de datos
+        while True:
+            session_id = str(uuid.uuid4())
+            if session_id not in Database_v1:
+                break
+        img_id = initial_payload.get("img_id", None)
+        img_bool = False if img_id is None else True
+        
         data = {
             session_id: {
                 "user_input": initial_payload.get("user_input", ""),
-                "img": initial_payload.get("img", False),
+                "img": img_bool,
+                "img_id": img_id,
                 "messages": initial_payload.get("messages", []),
                 "created_at": datetime.utcnow().isoformat() + "Z",
             }
@@ -272,9 +280,8 @@ else:
 
     class OrchestratorRequest(TypedDict, total=False):
         session_id: Optional[str]
-        user_input: str
-        img: Optional[bool]
-        img_base64: Optional[str]
+        user_input: Optional[str]
+        img_id: Optional[int]
         messages: Optional[list]
 
     @router.post("/orchestrate")
@@ -293,21 +300,11 @@ else:
             session_id, created_session = create_session(req)
             session = created_session[session_id]
 
-        img_base64 = session.get("img_base64") or req.get("img_base64")
-        img_input = None
-        is_base64 = False
-
-        if img_base64:
-            img_input = img_base64
-            is_base64 = True
-        elif session.get("img") and isinstance(session.get("img"), (str, bytes)):
-            img_input = session.get("img")
-            is_base64 = False
-
         init_state = {
+            "session_id": session_id,
             "user_input": session.get("user_input", req.get("user_input", "")),
-            "img_base64": img_base64,
-            "img": img_input,
+            "img": session.get("img", False),
+            "img_id": session.get("img_id", None),
             "malprompt": False,
             "attempts": session.get("attempts", 0),
             "run_tools": session.get("run_tools", []),
@@ -322,16 +319,17 @@ else:
             "created_at": session.get("created_at", datetime.utcnow().isoformat() + "Z"),
         }
         # --- Depuración ---
+        print("DEBUG INIT STATE session_id:", init_state.get("session_id"))
         print("DEBUG INIT STATE img:", init_state.get("img"))
-        print("DEBUG INIT STATE img_base64:", "sí" if init_state.get("img_base64") else "no")
         print("DEBUG INIT STATE user_input:", init_state.get("user_input"))
 
         if init_state["user_input"]:
-            # Optionally append the user message to messages (so prompts can see history)
+
+            # Añadir el input del usuario al historial de mensajes
             from langchain_core.messages import HumanMessage
             init_state["messages"] = init_state.get("messages", []) + [HumanMessage(content=init_state["user_input"])]
 
-            # 3) Call the langgraph app synchronously
+            # Llamada al agente de manera asíncrona 
             try:
                 result = agent.invoke(init_state)
             except Exception as e:
@@ -341,6 +339,7 @@ else:
             save_session(session_id, {
                 "user_input": init_state["user_input"],
                 "img": result.get("img", False),
+                "img_id": result.get("img_id", None),
                 "malprompt": result.get("malprompt", False),
                 "attempts": result.get("attempts", 0),
                 "run_tools": result.get("run_tools", []),
@@ -363,10 +362,7 @@ else:
             return {
                 "session_id": session_id,
                 "final_response": result.get("final_response", ""),
-                "state": {
-                    "validated": result.get("validated", False),
-                    "val_just": result.get("val_just", "")
-                }
+                
             }
             
     app.include_router(router)

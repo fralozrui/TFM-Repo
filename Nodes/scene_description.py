@@ -10,6 +10,7 @@ import io
 import torch
 from transformers import AutoProcessor, GitForCausalLM
 from Agent.orchestrator_keys import OrchestratorState  # Asegúrate de importar correctamente
+from Nodes.utils_models import read_img
 
 # Forzar uso de CPU
 device = torch.device("cpu")
@@ -25,22 +26,29 @@ def tool_describe_scene(state: OrchestratorState) -> str:
     Extrae imagen (base64 o ruta) y genera una descripción de la escena.
     """
     print("[DEBUG] Ejecutando tool_describe_scene...")
-
+    img_id = state.get("img_id", None)
+    if img_id is not None:
+        image = read_img(img_id)  
+    else:
+        return "[ERROR en tool_object_detection]: No se ha proporcionado img_id en el estado."
+    if image is None:
+        return "[ERROR en tool_object_detection]: No se pudo cargar la imagen con el img_id proporcionado."
+        
     # Obtener imagen
-    img_input = state.get("img_base64") or state.get("img")
-    if not img_input:
-        return "[ERROR] No se ha proporcionado imagen en el estado."
+    # img_input = state.get("img_base64") or state.get("img")
+    # if not img_input:
+    #     return "[ERROR] No se ha proporcionado imagen en el estado."
 
-    # Cargar imagen desde base64 o ruta
-    try:
-        if state.get("img_base64"):
-            img_bytes = base64.b64decode(img_input)
-            image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
-        else:
-            image = Image.open(img_input).convert("RGB")
-    except Exception as e:
-        return f"[ERROR] No se pudo cargar la imagen: {str(e)}"
-
+    # # Cargar imagen desde base64 o ruta
+    # try:
+    #     if state.get("img_base64"):
+    #         img_bytes = base64.b64decode(img_input)
+    #         image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+    #     else:
+    #         image = Image.open(img_input).convert("RGB")
+    # except Exception as e:
+    #     return f"[ERROR] No se pudo cargar la imagen: {str(e)}"
+    
     # Procesar y generar descripción
     inputs = processor(images=image, return_tensors="pt").to(device)
 
