@@ -4,3 +4,10 @@ __pycache__/
 .env
 *.ipynb_checkpoints
 .DS_Store
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.exe
+*.dll
