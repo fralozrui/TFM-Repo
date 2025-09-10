@@ -33,7 +33,7 @@ init_req = {
 # Hacer petición POST
 # ----------------------------
 try:
-    response = requests.post(url="http://127.0.0.1:8000/orchestrate", json=init_req)
+    response = requests.post(url="http://127.0.0.1:8080/orchestrate", json=init_req)
     response.raise_for_status()
     json_response = response.json()
     

@@ -4,9 +4,9 @@
 # modelo de forma portable en HuggingFace Spaces o servidores compatibles.
 
 # Usa Python base oficial
-FROM python:3.10-slim
+    FROM python:3.10-slim
 
-# Instala dependencias necesarias del sistema
+# Dependencias del sistema
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -21,21 +21,27 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Crea el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos de requirements
+# Copiamos requirements e instalamos dependencias
 COPY requirements.txt .
-
-# Instala las dependencias de Python
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copia el resto del proyecto
+### !Aquí se guardan los modelos cargados en cpu, cambiar si se cambia el modelo
+# Descargamos los modelos en la imagen para no depender de HuggingFace en tiempo de arranque
+RUN python -c "from transformers import BlipProcessor; BlipProcessor.from_pretrained('Salesforce/blip-vqa-base')" \
+ && python -c "from transformers import BlipForQuestionAnswering; BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base')"
+
+# Copiamos la caché de HF a una ruta estable dentro de la imagen
+RUN mkdir -p /app/hf_cache && cp -r /root/.cache/huggingface/* /app/hf_cache/
+ENV TRANSFORMERS_CACHE=/app/hf_cache
+
+# Copiamos el resto del proyecto
 COPY . .
 
-# Expone el puerto usado por Cloud Run
+# Exponemos el puerto usado por Cloud Run
 EXPOSE 8080
 
-# Comando de arranque (FastAPI con Uvicorn)
+# Arranque de la API
 CMD ["uvicorn", "App.main:app", "--host", "0.0.0.0", "--port", "8080"]
