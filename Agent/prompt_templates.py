@@ -2,7 +2,7 @@
 Contiene las plantillas de prompt que utiliza el LLM orquestador para decidir a qué nodo enviar cada entrada,
 según el contenido y la intención detectada en la conversación.
 """
-from Agent.orchestrator_keys import OrchestratorState
+from Agent.orchestrator_keys import OrchestratorState, model_gemini
 from Nodes.utils_models import TOOLS
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 
@@ -64,6 +64,33 @@ def responder_prompt(state: OrchestratorState) -> str:
     img = state.get("img", False)
     malprompt = state.get("malprompt", False)
     context = state.get("messages", [])
+    if len(context) > 10:
+        context_prompt = f"""
+        Eres un asistente especializado en resumir conversaciones. 
+        Tu tarea es generar un resumen breve y condensado de un historial de mensajes en formato `List[BaseMessage]`. 
+
+        ### Reglas para el resumen:
+        1. El resumen debe ser **más corto que el total de los mensajes originales**.
+        2. Extrae solo los aspectos más importantes y relevantes de la conversación: 
+        - la intención principal del usuario, 
+        - las preguntas clave, 
+        - la información crítica proporcionada por el asistente, 
+        - parámetros o variables relevantes mencionadas.
+        3. No repitas el historial tal cual ni enumeres cada mensaje; sintetiza la conversación en **una narración compacta**.
+        4. Mantén neutralidad: no añadas juicios, explicaciones adicionales ni información que no aparezca en los mensajes.
+        5. El resumen debe estar en el mismo idioma predominante del historial.
+        6. La salida debe ser texto plano, claro y fácil de leer, sin formato especial.
+
+        ---
+
+        Historial de mensajes a resumir:
+        {context}
+
+        Resumen:
+
+        """
+        context_resumed = model_gemini.generate_content(context_prompt).candidates[0].content.parts[0].text.strip()
+    else: context_resumed = context
     return f"""
           Eres un agente conversacional dentro de una aplicación diseñada para ayudar a personas con discapacidad visual.
           Tu tarea es generar la respuesta final para contestar al usuario basándote en el input recibido, los parámetros y el contexto de tareas previas.
@@ -110,8 +137,8 @@ def responder_prompt(state: OrchestratorState) -> str:
           El contexto generado por las tareas previas fue:
           {tool_outputs}
           
-          Por si lo necesitas en algún caso, el historial de mensajes ha sido:
-          {context}
+          Por si lo necesitas en algún caso, el resumen del historial de mensajes es:
+          {context_resumed}
           """
 def validator_prompt(state: OrchestratorState) -> str:
     user_input = ""

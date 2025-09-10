@@ -286,83 +286,93 @@ else:
 
     @router.post("/orchestrate")
     async def orchestrate(req: OrchestratorRequest, x_api_key: Optional[str] = Header(None)):
-        session_id = req.get("session_id")
-        if session_id:
-            session = load_session(session_id)
-            session.update(req) 
-            if not session:
-                # start fresh if not found
+        try:
+            session_id = req.get("session_id")
+            if session_id:
+                session = load_session(session_id)
+                session.update(req) 
+                if not session:
+                    # start fresh if not found
+                    session_id, created_session = create_session(req)
+                    session = created_session[session_id]
+                else:
+                    session.update(req)
+            else:
                 session_id, created_session = create_session(req)
                 session = created_session[session_id]
-            else:
-                session.update(req)
-        else:
-            session_id, created_session = create_session(req)
-            session = created_session[session_id]
 
-        init_state = {
-            "session_id": session_id,
-            "user_input": session.get("user_input", req.get("user_input", "")),
-            "img": session.get("img", False),
-            "img_id": session.get("img_id", None),
-            "malprompt": False,
-            "attempts": session.get("attempts", 0),
-            "run_tools": session.get("run_tools", []),
-            "justification": session.get("justification", ""),
-            "tool_outputs": session.get("tool_outputs", {}),
-            "final_response": "",
-            "pending_error": session.get("pending_error", False),
-            "validated": session.get("validated", False),
-            "val_just": session.get("val_just", ""),
-            "error_history": session.get("error_history", []),
-            "messages": session.get("messages", []),
-            "created_at": session.get("created_at", datetime.utcnow().isoformat() + "Z"),
-        }
-        # --- Depuración ---
-        print("DEBUG INIT STATE session_id:", init_state.get("session_id"))
-        print("DEBUG INIT STATE img:", init_state.get("img"))
-        print("DEBUG INIT STATE user_input:", init_state.get("user_input"))
-
-        if init_state["user_input"]:
-
-            # Añadir el input del usuario al historial de mensajes
-            from langchain_core.messages import HumanMessage
-            init_state["messages"] = init_state.get("messages", []) + [HumanMessage(content=init_state["user_input"])]
-
-            # Llamada al agente de manera asíncrona 
-            try:
-                result = agent.invoke(init_state)
-            except Exception as e:
-                logger.exception("LangGraph invocation failed")
-                raise HTTPException(status_code=500, detail=str(e))
-
-            save_session(session_id, {
-                "user_input": init_state["user_input"],
-                "img": result.get("img", False),
-                "img_id": result.get("img_id", None),
-                "malprompt": result.get("malprompt", False),
-                "attempts": result.get("attempts", 0),
-                "run_tools": result.get("run_tools", []),
-                "justification": result.get("justification", ""),
-                "tool_outputs": result.get("tool_outputs", {}),
-                "final_response": result.get("final_response", ""),
-                "pending_error": result.get("pending_error", False),
-                "validated": result.get("validated", False),
-                "val_just": result.get("val_just", ""),
-                "error_history": result.get("error_history", []),
-                "messages": result.get("messages", []),
-                "created_at": result.get("created_at", datetime.utcnow().isoformat() + "Z"),
-            })
-
-            try:
-                save_database()
-            except Exception as e:
-                print(f"Error saving database: {str(e)}")
-
-            return {
+            init_state = {
                 "session_id": session_id,
-                "final_response": result.get("final_response", ""),
-                
+                "user_input": session.get("user_input", req.get("user_input", "")),
+                "img": session.get("img", False),
+                "img_id": session.get("img_id", None),
+                "malprompt": False,
+                "attempts": session.get("attempts", 0),
+                "run_tools": session.get("run_tools", []),
+                "justification": session.get("justification", ""),
+                "tool_outputs": session.get("tool_outputs", {}),
+                "final_response": "",
+                "pending_error": session.get("pending_error", False),
+                "validated": session.get("validated", False),
+                "val_just": session.get("val_just", ""),
+                "error_history": session.get("error_history", []),
+                "messages": session.get("messages", []),
+                "created_at": session.get("created_at", datetime.utcnow().isoformat() + "Z"),
             }
-            
+            # --- Depuración ---
+            print("DEBUG INIT STATE session_id:", init_state.get("session_id"))
+            print("DEBUG INIT STATE img:", init_state.get("img"))
+            print("DEBUG INIT STATE user_input:", init_state.get("user_input"))
+
+            if init_state["user_input"]:
+
+                # Añadir el input del usuario al historial de mensajes
+                from langchain_core.messages import HumanMessage
+                init_state["messages"] = init_state.get("messages", []) + [HumanMessage(content=init_state["user_input"])]
+
+                # Llamada al agente de manera asíncrona 
+                try:
+                    result = agent.invoke(init_state)
+                except Exception as e:
+                    logger.exception("LangGraph invocation failed")
+                    raise HTTPException(status_code=500, detail=str(e))
+
+                save_session(session_id, {
+                    "user_input": init_state["user_input"],
+                    "img": result.get("img", False),
+                    "img_id": result.get("img_id", None),
+                    "malprompt": result.get("malprompt", False),
+                    "attempts": result.get("attempts", 0),
+                    "run_tools": result.get("run_tools", []),
+                    "justification": result.get("justification", ""),
+                    "tool_outputs": result.get("tool_outputs", {}),
+                    "final_response": result.get("final_response", ""),
+                    "pending_error": result.get("pending_error", False),
+                    "validated": result.get("validated", False),
+                    "val_just": result.get("val_just", ""),
+                    "error_history": result.get("error_history", []),
+                    "messages": result.get("messages", []),
+                    "created_at": result.get("created_at", datetime.utcnow().isoformat() + "Z"),
+                })
+
+                try:
+                    save_database()
+                except Exception as e:
+                    print(f"Error saving database: {str(e)}")
+
+                return {
+                    "status": 200,
+                    "session_id": session_id,
+                    "final_response": result.get("final_response", ""),             
+                        }
+            else:
+                return {
+                    "status": 400,
+                    "error": "An input is required"
+                }
+        except Exception as e:
+            return{
+                "status": 500,
+                "error":str(e)
+            }
     app.include_router(router)
