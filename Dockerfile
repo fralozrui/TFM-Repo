@@ -38,13 +38,13 @@ ENV TRANSFORMERS_CACHE=/app/hf_cache
 RUN python -c "from transformers import BlipProcessor; BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import BlipForQuestionAnswering; BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache')"
 
-# Helsinki-NLP opus-mt-es-en
+# Helsinki-NLP opus-mt-es-en (traducción)
 RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 
-# Microsoft git-base
-RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
-RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
+# Microsoft git-base (image-to-text)
+RUN python -c "from transformers import GitProcessor; GitProcessor.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
+RUN python -c "from transformers import GitForCausalLM; GitForCausalLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 
 # Copiamos el resto del proyecto
 COPY . .
