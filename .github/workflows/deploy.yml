@@ -1,0 +1,51 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - Carlos
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Checkout del código
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2) Configurar Google Cloud SDK
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      # 3) Configurar Docker para usar Artifact Registry
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      # 4) Build y push de la imagen
+      - name: Build and push Docker image
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/argoos-repo/argoos-agent:latest"
+          docker build -t $IMAGE .
+          docker push $IMAGE
+
+      # 5) Desplegar a Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/argoos-repo/argoos-agent:latest"
+          gcloud run deploy argoos-agent \
+            --image $IMAGE \
+            --region europe-west1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --service-account argoos-run-sa@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
+            --set-env-vars GCP_PROJECT=${{ secrets.GCP_PROJECT }},ENV=cloud \
+            --set-secrets ORCHESTRATOR_API_KEY=ORCHESTRATOR_API_KEY:latest,GEMINI_API_KEY=GEMINI_API_KEY:latest \
+            --memory 6Gi \
+            --cpu 2 \
+            --concurrency 10 \
+            --timeout 300
