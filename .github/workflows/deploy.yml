@@ -54,7 +54,7 @@ jobs:
             --service-account argoos-run-sa@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
             --set-env-vars GCP_PROJECT=${{ secrets.GCP_PROJECT }},ENV=cloud \
             --set-secrets ORCHESTRATOR_API_KEY=ORCHESTRATOR_API_KEY:latest,GEMINI_API_KEY=GEMINI_API_KEY:latest \
-            --memory 20Gi \
+            --memory 8Gi \
             --cpu 2 \
             --concurrency 10 \
             --timeout 300
