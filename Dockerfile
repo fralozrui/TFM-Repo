@@ -33,16 +33,18 @@ RUN pip install -r requirements.txt
 RUN mkdir -p /app/hf_cache
 ENV TRANSFORMERS_CACHE=/app/hf_cache
 
-### !Aquí se guardan los modelos cargados en cpu, cambiar si se cambia el modelo
-# Predescargamos todos los modelos necesarios
-RUN python -c "\
-from transformers import BlipProcessor, BlipForQuestionAnswering, AutoTokenizer, AutoModelForSeq2SeqLM; \
-BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
-BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
-AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache'); \
-AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache'); \
-AutoTokenizer.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache'); \
-AutoModelForSeq2SeqLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
+### !Predescarga de modelos necesarios para evitar descargas en tiempo de ejecución
+# Blip VQA
+RUN python -c "from transformers import BlipProcessor; BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache')"
+RUN python -c "from transformers import BlipForQuestionAnswering; BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache')"
+
+# Helsinki-NLP opus-mt-es-en
+RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
+RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
+
+# Microsoft git-base
+RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
+RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 
 # Copiamos el resto del proyecto
 COPY . .
