@@ -18,16 +18,14 @@ jobs:
         uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }} | base64 --decode
           export_default_credentials: true
 
       # 3) Comprobación de la autenticación
       - name: Authenticate with service account
         run: |
-          cat <<EOF > $GITHUB_WORKSPACE/key.json
-        ${{ secrets.GCP_SA_FILE }}
-        EOF
-            gcloud auth activate-service-account --key-file=$GITHUB_WORKSPACE/key.json
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > $GITHUB_WORKSPACE/key.json
+          gcloud auth activate-service-account --key-file=$GITHUB_WORKSPACE/key.json
 
       # 4) Elimina el caché de autenticación de Docker
       - name: Remove Docker auth cache
