@@ -44,4 +44,4 @@ COPY . .
 EXPOSE 8080
 
 # Arranque de la API
-CMD ["uvicorn", "App.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["sh", "-c", "uvicorn App.main:app --host 0.0.0.0 --port ${PORT}"]
