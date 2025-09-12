@@ -21,6 +21,12 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }} | base64 --decode
           export_default_credentials: true
 
+      # 3) Comprobación de la autenticación
+      - name: Authenticate with service account
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > $GITHUB_WORKSPACE/key.json
+          gcloud auth activate-service-account --key-file=$GITHUB_WORKSPACE/key.json
+
       # 4) Elimina el caché de autenticación de Docker
       - name: Remove Docker auth cache
         run: rm -f ~/.docker/config.json
