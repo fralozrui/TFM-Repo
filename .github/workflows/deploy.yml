@@ -21,19 +21,28 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
-      # 3) Configurar Docker para usar Artifact Registry
-      - name: Configure Docker for Artifact Registry
+      # 3) Comprobación de la autenticación
+      - name: Authenticate with service account
         run: |
-          gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+          echo "${{ secrets.GCP_SA_KEY }}" > key.json
+          gcloud auth activate-service-account --key-file=key.json
 
-      # 4) Build y push de la imagen
+      # 4) Elimina el caché de autenticación de Docker
+      - name: Remove Docker auth cache
+        run: rm -f ~/.docker/config.json
+
+      # 5) Vuelve a configurar la autenticación de Docker
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      # 6) Build y push de la imagen
       - name: Build and push Docker image
         run: |
           IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/argoos-repo/argoos-agent:latest"
           docker build -t $IMAGE .
           docker push $IMAGE
 
-      # 5) Desplegar a Cloud Run
+      # 7) Desplegar a Cloud Run
       - name: Deploy to Cloud Run
         run: |
           IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/argoos-repo/argoos-agent:latest"
@@ -45,7 +54,7 @@ jobs:
             --service-account argoos-run-sa@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
             --set-env-vars GCP_PROJECT=${{ secrets.GCP_PROJECT }},ENV=cloud \
             --set-secrets ORCHESTRATOR_API_KEY=ORCHESTRATOR_API_KEY:latest,GEMINI_API_KEY=GEMINI_API_KEY:latest \
-            --memory 6Gi \
+            --memory 20Gi \
             --cpu 2 \
             --concurrency 10 \
             --timeout 300
