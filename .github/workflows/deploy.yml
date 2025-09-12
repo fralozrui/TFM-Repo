@@ -24,7 +24,7 @@ jobs:
       # 3) Comprobación de la autenticación
       - name: Authenticate with service account
         run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > key.json
+          echo "${{ secrets.GCP_SA_KEY }}" | sed 's/\\n/\n/g' > key.json
           gcloud auth activate-service-account --key-file=key.json
 
       # 4) Elimina el caché de autenticación de Docker
