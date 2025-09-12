@@ -4,7 +4,7 @@
 # modelo de forma portable en HuggingFace Spaces o servidores compatibles.
 
 # Usa Python base oficial
-    FROM python:3.10-slim
+FROM python:3.10-slim
 
 # Dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Directorio de trabajo
 WORKDIR /app
 
 # Copiamos requirements e instalamos dependencias
@@ -28,14 +29,18 @@ COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-### !Aquí se guardan los modelos cargados en cpu, cambiar si se cambia el modelo
-# Descargamos los modelos en la imagen para no depender de HuggingFace en tiempo de arranque
-RUN python -c "from transformers import BlipProcessor; BlipProcessor.from_pretrained('Salesforce/blip-vqa-base')" \
- && python -c "from transformers import BlipForQuestionAnswering; BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base')"
-
-# Copiamos la caché de HF a una ruta estable dentro de la imagen
-RUN mkdir -p /app/hf_cache && cp -r /root/.cache/huggingface/* /app/hf_cache/
+# Directorio para caché de modelos HF
+RUN mkdir -p /app/hf_cache
 ENV TRANSFORMERS_CACHE=/app/hf_cache
+
+### !Aquí se guardan los modelos cargados en cpu, cambiar si se cambia el modelo
+# Predescargamos todos los modelos necesarios
+RUN python -c "from transformers import BlipProcessor, BlipForQuestionAnswering; \
+    BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
+    BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
+    from transformers import AutoTokenizer, AutoModelForSeq2SeqLM; \
+    AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache'); \
+    AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 
 # Copiamos el resto del proyecto
 COPY . .
@@ -43,5 +48,5 @@ COPY . .
 # Exponemos el puerto usado por Cloud Run
 EXPOSE 8080
 
-# Arranque de la API
-CMD exec uvicorn App.main:app --host 0.0.0.0 --port ${PORT:-8080}
+# Arranque de la API usando la variable PORT de Cloud Run
+CMD ["sh", "-c", "uvicorn App.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
