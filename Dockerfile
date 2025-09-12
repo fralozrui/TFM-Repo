@@ -35,12 +35,14 @@ ENV TRANSFORMERS_CACHE=/app/hf_cache
 
 ### !Aquí se guardan los modelos cargados en cpu, cambiar si se cambia el modelo
 # Predescargamos todos los modelos necesarios
-RUN python -c "from transformers import BlipProcessor, BlipForQuestionAnswering; \
-    BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
-    BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
-    from transformers import AutoTokenizer, AutoModelForSeq2SeqLM; \
-    AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache'); \
-    AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
+RUN python -c "\
+from transformers import BlipProcessor, BlipForQuestionAnswering, AutoTokenizer, AutoModelForSeq2SeqLM; \
+BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
+BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache'); \
+AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache'); \
+AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache'); \
+AutoTokenizer.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache'); \
+AutoModelForSeq2SeqLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 
 # Copiamos el resto del proyecto
 COPY . .

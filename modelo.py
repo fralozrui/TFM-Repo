@@ -1,53 +1,53 @@
-# modelo.py
-from PIL import Image
-import torch
-import sys
-from transformers import AutoProcessor, GitForCausalLM
-import io
-import base64
+# # modelo.py
+# from PIL import Image
+# import torch
+# import sys
+# from transformers import AutoProcessor, GitForCausalLM
+# import io
+# import base64
 
-# Forzar CPU
-device = torch.device("cpu")
+# # Forzar CPU
+# device = torch.device("cpu")
 
-model_name = "microsoft/git-base"
-processor = AutoProcessor.from_pretrained(model_name)
-model = GitForCausalLM.from_pretrained(model_name).to(device)
+# model_name = "microsoft/git-base"
+# processor = AutoProcessor.from_pretrained(model_name)
+# model = GitForCausalLM.from_pretrained(model_name).to(device)
 
-def generar_caption(input_data: str, is_base64: bool = False):
-    """
-    input_data: ruta de imagen o string base64
-    is_base64: True si input_data es base64, False si es ruta
-    """
-    if is_base64:
-        import base64, io
-        img_bytes = base64.b64decode(input_data)
-        image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
-    else:
-        image = Image.open(input_data).convert("RGB")
-    inputs = processor(images=image, return_tensors="pt").to(device)
+# def generar_caption(input_data: str, is_base64: bool = False):
+#     """
+#     input_data: ruta de imagen o string base64
+#     is_base64: True si input_data es base64, False si es ruta
+#     """
+#     if is_base64:
+#         import base64, io
+#         img_bytes = base64.b64decode(input_data)
+#         image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+#     else:
+#         image = Image.open(input_data).convert("RGB")
+#     inputs = processor(images=image, return_tensors="pt").to(device)
 
-    with torch.no_grad():
-        outputs = model.generate(
-            **inputs,
-            max_length=100,
-            do_sample=True,
-            top_p=0.95,
-            temperature=1.1,
-            num_return_sequences=1,
-            pad_token_id=model.config.pad_token_id
-        )
+#     with torch.no_grad():
+#         outputs = model.generate(
+#             **inputs,
+#             max_length=100,
+#             do_sample=True,
+#             top_p=0.95,
+#             temperature=1.1,
+#             num_return_sequences=1,
+#             pad_token_id=model.config.pad_token_id
+#         )
 
-    captions = [processor.tokenizer.decode(output, skip_special_tokens=True).strip()
-                for output in outputs]
-    return captions
+#     captions = [processor.tokenizer.decode(output, skip_special_tokens=True).strip()
+#                 for output in outputs]
+#     return captions
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Uso: python modelo.py ruta/a/imagen.jpg")
-        exit()
-    path = sys.argv[1]
-    caption = generar_caption(path)
-    print("\n--- Descripción generada ---")
-    for cap in caption:
-        print(cap)
-    print("---------------------------")
+# if __name__ == "__main__":
+#     if len(sys.argv) != 2:
+#         print("Uso: python modelo.py ruta/a/imagen.jpg")
+#         exit()
+#     path = sys.argv[1]
+#     caption = generar_caption(path)
+#     print("\n--- Descripción generada ---")
+#     for cap in caption:
+#         print(cap)
+#     print("---------------------------")
