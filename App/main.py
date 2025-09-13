@@ -54,12 +54,12 @@ if entorno != "local":
         if req.get("session_id",""):
             session = load_session_cloud(req.get("session_id",""), fs_client, FIRESTORE_COLLECTION)
             if not session:
-                session_id, session = create_session_cloud(req.dict(), fs_client, FIRESTORE_COLLECTION)
+                session_id, session = create_session_cloud(req, fs_client, FIRESTORE_COLLECTION)
             else:
-                session.update(req.dict())
+                session.update(req)
                 session_id = req.get("session_id","")
         else:
-            session_id, session = create_session_cloud(req.dict(), fs_client, FIRESTORE_COLLECTION)
+            session_id, session = create_session_cloud(req, fs_client, FIRESTORE_COLLECTION)
 
         # 3) Build init_state for LangGraph
         img_url = ''
