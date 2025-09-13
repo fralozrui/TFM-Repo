@@ -34,15 +34,20 @@ RUN mkdir -p /app/hf_cache
 ENV TRANSFORMERS_CACHE=/app/hf_cache
 
 ### !Predescarga de modelos necesarios para evitar descargas en tiempo de ejecución
-# Blip VQA
+
+# 1) Blip VQA
 RUN python -c "from transformers import BlipProcessor; BlipProcessor.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import BlipForQuestionAnswering; BlipForQuestionAnswering.from_pretrained('Salesforce/blip-vqa-base', cache_dir='/app/hf_cache')"
 
-# Helsinki-NLP opus-mt-es-en (traducción)
+# 2) Helsinki-NLP opus-mt-es-en (español → inglés)
 RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 
-# Microsoft git-base (image-to-text)
+# 3) Helsinki-NLP opus-mt-en-es (inglés → español) <-- este es el que faltaba
+RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-es', cache_dir='/app/hf_cache')"
+RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-en-es', cache_dir='/app/hf_cache')"
+
+# 4) Microsoft git-base (image-to-text)
 RUN python -c "from transformers import GitProcessor; GitProcessor.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import GitForCausalLM; GitForCausalLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 
