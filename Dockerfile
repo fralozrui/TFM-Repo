@@ -4,7 +4,7 @@
 # modelo de forma portable en HuggingFace Spaces o servidores compatibles.
 
 # Usa Python base oficial desde GitHub Container Registry (evita límites de Docker Hub)
-FROM ghcr.io/library/python:3.10-slim
+FROM python:3.10-slim
 
 # Dependencias del sistema
 RUN apt-get update && apt-get install -y \
