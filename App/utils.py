@@ -65,7 +65,6 @@ def save_image_to_gcs(img_base64: str, session_id: str) -> str:
     from google.cloud import storage
 
     storage_client = storage.Client()
-    BUCKET_NAME = "argoos-images"
     # Decodificar base64
     if img_base64.startswith("data:image"):
         img_base64 = img_base64.split(",")[1]
@@ -73,7 +72,8 @@ def save_image_to_gcs(img_base64: str, session_id: str) -> str:
     
     # Nombre único
     img_name = f"{session_id}/{uuid.uuid4().hex}.jpg"
-
+    
+    BUCKET_NAME = "argoos-images"
     bucket = storage_client.bucket(BUCKET_NAME)
     blob = bucket.blob(img_name)
     try:
