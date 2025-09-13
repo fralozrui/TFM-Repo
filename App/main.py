@@ -51,29 +51,31 @@ if entorno != "local":
 
         # 2) Load or create session
         session = {}
-        if req.session_id:
-            session = load_session_cloud(req.session_id, fs_client, FIRESTORE_COLLECTION)
+        if req.get("session_id",""):
+            session = load_session_cloud(req.get("session_id",""), fs_client, FIRESTORE_COLLECTION)
             if not session:
                 session_id, session = create_session_cloud(req.dict(), fs_client, FIRESTORE_COLLECTION)
             else:
                 session.update(req.dict())
-                session_id = req.session_id
+                session_id = req.get("session_id","")
         else:
             session_id, session = create_session_cloud(req.dict(), fs_client, FIRESTORE_COLLECTION)
 
         # 3) Build init_state for LangGraph
         img_url = ''
-        if req.img_base64:
+        img_base64 = req.get("img_base64","")
+        if img_base64:
             try:
-                img_url = save_image_to_gcs(req.img_base64, session_id)
+                img_url = save_image_to_gcs(img_base64, session_id)
             except Exception as e:
                 logger.error(f"Error al guardar imagen en GCS: {e}")
                 img_url = ''
 
         init_state = {
-            "user_input": session.get("user_input", req.user_input),
-            "img_base64": session.get("img_base64", ""),
+            "user_input": session.get("user_input", req["user_input"]),
+            "img_base64": img_base64,
             "img": session.get("img",False),
+            "img_url": img_url,
             "malprompt": False,
             "attempts": session.get("attempts", 0),
             "run_tools": session.get("run_tools", []),
