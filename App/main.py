@@ -43,8 +43,9 @@ if entorno != "local":
     router = APIRouter()
 
     @router.post("/orchestrate")
-    async def orchestrate(req: OrchestratorRequest, x_api_key: Optional[str] = Header(None)):
+    async def orchestrate(req: OrchestratorRequest):
         # 1) Auth
+        x_api_key = req.get("api_key","")
         if ORCHESTRATOR_API_KEY and x_api_key != ORCHESTRATOR_API_KEY:
             return {"status_code":401, "message":"Invalid Key"}
 

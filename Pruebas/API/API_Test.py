@@ -23,6 +23,7 @@ img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
 # Payload de la API
 # ----------------------------
 init_req = {
+    "api_key": "OfVuikTRE9AcxEWI8DkglHChayiqjKfC",
     "session_id": None,
     "img_base64": img_base64_str,
     "user_input": "¿Qué se ve en la foto?",
