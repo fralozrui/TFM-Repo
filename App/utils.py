@@ -6,10 +6,11 @@ from typing import Optional, Dict, Any
 from typing_extensions import TypedDict
 
 class OrchestratorRequest(TypedDict, total=False):
-        session_id: Optional[str] = None
-        user_input: str
-        img_base64: Optional[str] = None
-        messages: Optional[list] = []
+    api_key: str
+    session_id: Optional[str] = None
+    user_input: str
+    img_base64: Optional[str] = None
+    messages: Optional[list] = []
         
 def serialize_messages(messages):
         serialized = []
