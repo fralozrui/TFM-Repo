@@ -65,8 +65,10 @@ def save_image_to_gcs(img_base64: str, session_id: str) -> str:
     from google.cloud import storage
 
     storage_client = storage.Client()
-    BUCKET_NAME = os.environ.get("GCP_BUCKET", "argoos-images")
+    BUCKET_NAME = "argoos-images"
     # Decodificar base64
+    if img_base64.startswith("data:image"):
+        img_base64 = img_base64.split(",")[1]
     img_bytes = base64.b64decode(img_base64)
     
     # Nombre único
@@ -74,9 +76,12 @@ def save_image_to_gcs(img_base64: str, session_id: str) -> str:
 
     bucket = storage_client.bucket(BUCKET_NAME)
     blob = bucket.blob(img_name)
-    blob.upload_from_string(img_bytes, content_type="image/jpeg")
-
-    # Opcional: URL firmada temporal (24h)
-    url = blob.generate_signed_url(expiration=3600 * 24)
-
-    return url
+    try:
+        blob.upload_from_string(img_bytes, content_type="image/jpeg")
+        # Opcional: URL firmada temporal (24h)
+        url = blob.generate_signed_url(expiration=3600 * 24)
+        return url
+    except Exception as e:
+        print(f"[ERROR] Fallo al subir imagen a GCS: {e}")
+        return ""
+    
