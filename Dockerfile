@@ -4,7 +4,7 @@
 # modelo de forma portable en HuggingFace Spaces o servidores compatibles.
 
 # Usa Python base oficial
-FROM gcr.io/google-appengine/python:2023.04.24
+FROM gcr.io/debian-slim/python3:3.10
 
 # Dependencias del sistema
 RUN apt-get update && apt-get install -y \
