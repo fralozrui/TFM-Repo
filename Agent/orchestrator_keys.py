@@ -26,7 +26,6 @@ class OrchestratorState(TypedDict, total=False):
 
 
 # Configuración Gemini
-# genai.configure(api_key = 'AIzaSyDYfdOJUzU1WZJnIDYXkEQF5NmdP1OwnyQ')
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  
+GOOGLE_API_KEY = os.environ.get("GEMINI_API_KEY")  
 genai.configure(api_key = GOOGLE_API_KEY)
 model_gemini = genai.GenerativeModel("gemini-2.5-flash")
