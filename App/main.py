@@ -73,7 +73,7 @@ if entorno != "local":
 
         init_state = {
             "user_input": session.get("user_input", req["user_input"]),
-            # "img_base64": img_base64,
+            "img_base64": img_base64,
             "img": session.get("img",False),
             "img_url": img_url,
             "malprompt": False,
@@ -109,7 +109,7 @@ if entorno != "local":
             # 4) Persist updated state
             save_session_cloud(session_id, {
                 "user_input": init_state["user_input"],
-                "img_base64": result.get("img_base64",""),
+                "img_url": result.get("img_url",""),
                 "img": result.get("img", False),
                 "malprompt": result.get("malprompt", False),
                 "attempts": result.get("attempts", 0),

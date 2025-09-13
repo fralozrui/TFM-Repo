@@ -22,7 +22,7 @@ class OrchestratorState(TypedDict, total=False):
     messages: Annotated[List[BaseMessage], add_messages]
     session_id: str
     created_at: str
-    img_id: int
+    img_url: int
 
 
 # Configuración Gemini

@@ -29,7 +29,6 @@ def create_session_cloud(initial_payload: Dict[str, Any], fs_client, FIRESTORE_C
     data = {
         "session_id": session_id,
         "user_input": initial_payload.get("user_input", ""),
-        # "img_base64": initial_payload.get("img_base64", ""),
         "img": True if initial_payload.get("img_base64", "") != "" else False,
         "messages": initial_payload.get("messages", []),
         "created_at": datetime.utcnow().isoformat() + "Z",
