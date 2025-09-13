@@ -15,6 +15,13 @@ accelerate==0.30.1
 bitsandbytes==0.43.1
 numpy>=1.24
 
+# OCR
+easyocr==1.7.1
+torch==2.3.0
+torchvision==0.18.0
+opencv-python-headless==4.9.0.80
+scikit-image==0.22.0
+
 # Google / Gemini
 google-generativeai==0.7.2
 google-cloud-secret-manager

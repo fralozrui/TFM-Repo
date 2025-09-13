@@ -18,6 +18,10 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     libstdc++6 \
     ffmpeg \
+    libglib2.0-0 \
+    libsm6 \
+    libxrender1 \
+    libxext6 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -50,6 +54,9 @@ RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2S
 # 4) Microsoft git-base (image-to-text)
 RUN python -c "from transformers import GitProcessor; GitProcessor.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import GitForCausalLM; GitForCausalLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
+
+# 5) EasyOCR predescarga modelos
+RUN python -c "import easyocr; easyocr.Reader(['es','en'], download_enabled=True)"
 
 # Copiamos el resto del proyecto
 COPY . .
