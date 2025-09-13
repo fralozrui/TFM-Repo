@@ -10,17 +10,15 @@ import uuid
 import logging
 from datetime import datetime
 from typing import Optional, Dict, Any
-from typing_extensions import TypedDict
-from fastapi import FastAPI, HTTPException, Header, APIRouter, UploadFile
+from fastapi import FastAPI, HTTPException, Header, APIRouter
 from pydantic import BaseModel
-from starlette.middleware.cors import CORSMiddleware
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from Agent.orchestrator import agent, orchestrator_node, tools_node
-from Agent.orchestrator_keys import OrchestratorState
+from Agent.orchestrator import agent
+from App.utils import save_image_to_gcs, OrchestratorRequest, get_api_key_from_secret, serialize_messages, create_session_cloud, load_session_cloud, save_session_cloud
 
 # Detectar entorno
-entorno = os.getenv("ENV", "local")
+entorno = 'cloud'
 
 # --------------------------
 # Rama CLOUD (GCP / no local)
@@ -33,120 +31,48 @@ if entorno != "local":
     # Config
     from google.cloud import secretmanager, firestore
     PROJECT_ID = os.environ.get("GCP_PROJECT")  
-    API_KEY_SECRET_NAME = os.environ.get("API_KEY_SECRET_NAME")  
+    ORCHESTRATOR_API_KEY = os.environ.get("ORCHESTRATOR_API_KEY")  
     FIRESTORE_COLLECTION = os.environ.get("FIRESTORE_COLLECTION", "sessions")
 
     # Initialize clients
     sm_client = secretmanager.SecretManagerServiceClient()
     fs_client = firestore.Client()
 
-    # --- Helpers ---
-    _cached_api_key = None
-    def get_api_key_from_secret():
-        """Retrieve API key from Secret Manager (cached)."""
-        global _cached_api_key
-        if _cached_api_key:
-            return _cached_api_key
-        if not API_KEY_SECRET_NAME:
-            logger.warning("API_KEY_SECRET_NAME not set")
-            return None
-        name = f"projects/{PROJECT_ID}/secrets/{API_KEY_SECRET_NAME}/versions/latest"
-        resp = sm_client.access_secret_version(name=name)
-        _cached_api_key = resp.payload.data.decode("utf-8")
-        return _cached_api_key
-
-    def serialize_messages(messages):
-        serialized = []
-        for msg in messages:
-            if hasattr(msg, "type") and hasattr(msg, "content"):
-                serialized.append({"role": msg.type, "content": msg.content})
-            else:
-                serialized.append(str(msg))
-        return serialized
-
-    # --- Session helpers ---
-    def create_session(initial_payload: Dict[str, Any]) -> str:
-        session_id = str(uuid.uuid4())
-        doc_ref = fs_client.collection(FIRESTORE_COLLECTION).document(session_id)
-        data = {
-            "session_id": session_id,
-            "user_input": initial_payload.get("user_input", ""),
-            "img_id": initial_payload.get("img_id", False),
-            "messages": initial_payload.get("messages", []),
-            "created_at": datetime.utcnow().isoformat() + "Z",
-        }
-        doc_ref.set(data)
-        return session_id, data
-
-    def load_session(session_id: str) -> Dict[str, Any]:
-        doc = fs_client.collection(FIRESTORE_COLLECTION).document(session_id).get()
-        if not doc.exists:
-            return {}
-        return doc.to_dict()
-
-    def save_session(session_id: str, state: Dict[str, Any]):
-        doc_ref = fs_client.collection(FIRESTORE_COLLECTION).document(session_id)
-        state_copy = dict(state)
-        if "messages" in state_copy:
-            state_copy["messages"] = serialize_messages(state_copy["messages"])
-        if "error_history" in state_copy:
-            state_copy["error_history"] = serialize_messages(state_copy["error_history"])
-        state_copy["updated_at"] = firestore.SERVER_TIMESTAMP
-        doc_ref.set(state_copy, merge=True)
-
     # --- API definition ---
     app = FastAPI()
+    router = APIRouter()
 
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],  # Cambiar en producción
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
-    class OrchestratorRequest(BaseModel):
-        session_id: Optional[str] = None
-        user_input: str
-        img: Optional[bool] = False
-        img_base64: Optional[str] = None
-        messages: Optional[list] = []
-
-    @app.post("/orchestrate")
+    @router.post("/orchestrate")
     async def orchestrate(req: OrchestratorRequest, x_api_key: Optional[str] = Header(None)):
         # 1) Auth
-        expected_key = get_api_key_from_secret()
-        if expected_key and x_api_key != expected_key:
-            raise HTTPException(status_code=401, detail="Invalid API key")
+        if ORCHESTRATOR_API_KEY and x_api_key != ORCHESTRATOR_API_KEY:
+            return {"status_code":401, "message":"Invalid Key"}
 
         # 2) Load or create session
         session = {}
         if req.session_id:
-            session = load_session(req.session_id)
+            session = load_session_cloud(req.session_id, fs_client, FIRESTORE_COLLECTION)
             if not session:
-                session_id, session = create_session(req.dict())
+                session_id, session = create_session_cloud(req.dict(), fs_client, FIRESTORE_COLLECTION)
             else:
                 session.update(req.dict())
                 session_id = req.session_id
         else:
-            session_id, session = create_session(req.dict())
+            session_id, session = create_session_cloud(req.dict(), fs_client, FIRESTORE_COLLECTION)
 
         # 3) Build init_state for LangGraph
-        img_base64 = session.get("img_base64") or req.img_base64
-        img_input = None
-        is_base64 = False
-
-        if img_base64:
-            img_input = img_base64
-            is_base64 = True
-        elif session.get("img") and isinstance(session.get("img"), (str, bytes)):
-            img_input = session.get("img")
-            is_base64 = False
+        img_url = ''
+        if req.img_base64:
+            try:
+                img_url = save_image_to_gcs(req.img_base64, session_id)
+            except Exception as e:
+                logger.error(f"Error al guardar imagen en GCS: {e}")
+                img_url = ''
 
         init_state = {
             "user_input": session.get("user_input", req.user_input),
-            "img_base64": img_base64,
-            "img": img_input,
+            "img_base64": session.get("img_base64", ""),
+            "img": session.get("img",False),
             "malprompt": False,
             "attempts": session.get("attempts", 0),
             "run_tools": session.get("run_tools", []),
@@ -178,8 +104,9 @@ if entorno != "local":
                 raise HTTPException(status_code=500, detail=str(e))
 
             # 4) Persist updated state
-            save_session(session_id, {
+            save_session_cloud(session_id, {
                 "user_input": init_state["user_input"],
+                "img_base64": result.get("img_base64",""),
                 "img": result.get("img", False),
                 "malprompt": result.get("malprompt", False),
                 "attempts": result.get("attempts", 0),
@@ -193,7 +120,7 @@ if entorno != "local":
                 "error_history": result.get("error_history", []),
                 "messages": result.get("messages", []),
                 "created_at": result.get("created_at", datetime.utcnow().isoformat() + "Z"),
-            })
+            }, fs_client, FIRESTORE_COLLECTION)
 
             return {
                 "session_id": session_id,
@@ -221,17 +148,6 @@ else:
             Database_v1 = json.load(f)
     except FileNotFoundError:
         Database_v1 = {}
-
-    def serialize_messages(messages):
-        serialized = []
-        for msg in messages:
-            if hasattr(msg, "type") and hasattr(msg, "content"):
-                serialized.append({"role": msg.type, "content": msg.content})
-            else:
-                # por si tienes strings u otros objetos
-                serialized.append(str(msg))
-        return serialized
-
 
     # Función para guardar la base de datos en disco
     def save_database():
@@ -277,12 +193,6 @@ else:
             Database_v1[session_id].update(state)
         else:
             Database_v1[session_id] = state
-
-    class OrchestratorRequest(TypedDict, total=False):
-        session_id: Optional[str]
-        user_input: Optional[str]
-        img_id: Optional[int]
-        messages: Optional[list]
 
     @router.post("/orchestrate")
     async def orchestrate(req: OrchestratorRequest, x_api_key: Optional[str] = Header(None)):

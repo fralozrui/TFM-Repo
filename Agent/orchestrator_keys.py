@@ -1,14 +1,13 @@
 from typing import Dict, Any
-from langgraph.graph import StateGraph, END
-from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
-from typing_extensions import TypedDict, Annotated, Literal, Dict, Any, List
-from pydantic import BaseModel
+from langchain_core.messages import  BaseMessage
+from typing_extensions import TypedDict, Annotated, Dict, Any, List
 from langgraph.graph.message import add_messages
 import google.generativeai as genai
-import pandas as pd
+import os
 
 class OrchestratorState(TypedDict, total=False):
     user_input: str
+    img_base64: str
     img: bool
     malprompt: bool
     attempts: int
@@ -27,6 +26,7 @@ class OrchestratorState(TypedDict, total=False):
 
 
 # Configuración Gemini
-genai.configure(api_key = 'AIzaSyDYfdOJUzU1WZJnIDYXkEQF5NmdP1OwnyQ')
-# genai.configure(api_key = userdata.get('GOOGLE_API_KEY'))
+# genai.configure(api_key = 'AIzaSyDYfdOJUzU1WZJnIDYXkEQF5NmdP1OwnyQ')
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  
+genai.configure(api_key = GOOGLE_API_KEY)
 model_gemini = genai.GenerativeModel("gemini-2.5-flash")

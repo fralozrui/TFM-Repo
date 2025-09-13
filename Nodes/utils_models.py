@@ -2,30 +2,15 @@
 Define funciones comunes para cargar y ejecutar modelos compartidos entre nodos,
 como abstracciones de inferencia, carga desde HuggingFace, cacheo y gestión de dispositivos (CPU/GPU).
 """
-
-def read_img(img_id: int):
-    import os
-    import io
-    import base64
+def read_img(img_base64: str):
+    import io, base64
     from PIL import Image
-    img_path = os.path.join("Pruebas", "Database", "Images", f"{img_id}.jpg")
-    if not os.path.exists(img_path):
-        return None, f"[ERROR] La imagen con ID {img_id} no existe en la ruta {img_path}."
     try:
-        with open(img_path, "rb") as f:
-            img_bytes = f.read()
-
-        img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
-        img_bytes = base64.b64decode(img_base64_str)
+        img_bytes = base64.b64decode(img_base64)
         image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
         return image
-    
-    except:
-        try:
-            image = Image.open(img_path).convert("RGB")
-            return image
-        except Exception as e:
-            return None
+    except Exception as e:
+        return None, f"[ERROR] No se pudo decodificar la imagen: {str(e)}"
 
 # Diccionario TOOLS
 from Nodes.ocr_extractor import tool_ocr

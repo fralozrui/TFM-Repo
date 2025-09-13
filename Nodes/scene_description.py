@@ -26,29 +26,14 @@ def tool_describe_scene(state: OrchestratorState) -> str:
     Extrae imagen (base64 o ruta) y genera una descripción de la escena.
     """
     print("[DEBUG] Ejecutando tool_describe_scene...")
-    img_id = state.get("img_id", None)
-    if img_id is not None:
-        image = read_img(img_id)  
+    img_base64 = state.get("img_base64", "")
+    if img_base64:
+        image = read_img(img_base64)  
     else:
-        return "[ERROR en tool_object_detection]: No se ha proporcionado img_id en el estado."
+        return "[ERROR en tool_describe_scene]: No se ha proporcionado ninguna imagen."
     if image is None:
-        return "[ERROR en tool_object_detection]: No se pudo cargar la imagen con el img_id proporcionado."
-        
-    # Obtener imagen
-    # img_input = state.get("img_base64") or state.get("img")
-    # if not img_input:
-    #     return "[ERROR] No se ha proporcionado imagen en el estado."
+        return "[ERROR en tool_describe_scene]: No se pudo cargar la imagen con el img_base64 proporcionado."
 
-    # # Cargar imagen desde base64 o ruta
-    # try:
-    #     if state.get("img_base64"):
-    #         img_bytes = base64.b64decode(img_input)
-    #         image = Image.open(io.BytesIO(img_bytes)).convert("RGB")
-    #     else:
-    #         image = Image.open(img_input).convert("RGB")
-    # except Exception as e:
-    #     return f"[ERROR] No se pudo cargar la imagen: {str(e)}"
-    
     # Procesar y generar descripción
     inputs = processor(images=image, return_tensors="pt").to(device)
 
