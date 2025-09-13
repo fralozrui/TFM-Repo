@@ -3,8 +3,8 @@
 # Instala dependencias necesarias y configura el entorno para ejecutar el 
 # modelo de forma portable en HuggingFace Spaces o servidores compatibles.
 
-# Usa Python base oficial
-FROM gcr.io/debian-slim/python3:3.10
+# Usa Python base oficial desde GitHub Container Registry (evita límites de Docker Hub)
+FROM ghcr.io/library/python:3.10-slim
 
 # Dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -47,7 +47,7 @@ RUN python -c "from transformers import BlipForQuestionAnswering; BlipForQuestio
 RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-es-en', cache_dir='/app/hf_cache')"
 
-# 3) Helsinki-NLP opus-mt-en-es (inglés → español) <-- este es el que faltaba
+# 3) Helsinki-NLP opus-mt-en-es (inglés → español)
 RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-es', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-en-es', cache_dir='/app/hf_cache')"
 
@@ -55,7 +55,7 @@ RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2S
 RUN python -c "from transformers import GitProcessor; GitProcessor.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import GitForCausalLM; GitForCausalLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
 
-# 5) EasyOCR predescarga modelos
+# 5) EasyOCR predescarga modelos (es/en)
 RUN python -c "import easyocr; easyocr.Reader(['es','en'], download_enabled=True)"
 
 # Copiamos el resto del proyecto
