@@ -131,6 +131,8 @@ if entorno != "local":
                     "val_just": result.get("val_just", "")
                 }
             }
+    app.include_router(router)
+
 
 # --------------------------
 # Rama LOCAL
