@@ -44,17 +44,20 @@ def load_session_cloud(session_id: str, fs_client, FIRESTORE_COLLECTION) -> Dict
         return doc.to_dict()
 
 def save_session_cloud(session_id: str, state: Dict[str, Any], fs_client, FIRESTORE_COLLECTION):
-        doc = fs_client.collection(FIRESTORE_COLLECTION).document(session_id)
-        state_copy = dict(state)
-        if "messages" in state_copy:
-            state_copy["messages"] = serialize_messages(state_copy["messages"])
-        if "error_history" in state_copy:
-            state_copy["error_history"] = serialize_messages(state_copy["error_history"])
-        if not doc.exists:
-            doc_dict = {}
-        else: doc_dict = doc.to_dict()
-        doc_dict.update(state_copy)
-        doc.set(doc_dict, merge=False)
+    doc_ref = fs_client.collection(FIRESTORE_COLLECTION).document(session_id)
+    doc = doc_ref.get() 
+    state_copy = dict(state)
+    if "messages" in state_copy:
+        state_copy["messages"] = serialize_messages(state_copy["messages"])
+    if "error_history" in state_copy:
+        state_copy["error_history"] = serialize_messages(state_copy["error_history"])
+    if not doc.exists:
+        doc_dict = {}
+    else:
+        doc_dict = doc.to_dict()
+    doc_dict.update(state_copy)
+    doc_ref.set(doc_dict, merge=False)
+
     
 def save_image_to_gcs(img_base64: str, session_id: str) -> str:
     """Guarda imagen en Cloud Storage y devuelve la URL pública."""
