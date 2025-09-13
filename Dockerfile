@@ -4,7 +4,7 @@
 # modelo de forma portable en HuggingFace Spaces o servidores compatibles.
 
 # Usa Python base oficial
-FROM python:3.10-slim
+FROM gcr.io/distroless/python3-debian11:nonroot
 
 # Dependencias del sistema
 RUN apt-get update && apt-get install -y \
