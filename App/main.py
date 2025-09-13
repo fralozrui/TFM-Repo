@@ -73,7 +73,7 @@ if entorno != "local":
 
         init_state = {
             "user_input": session.get("user_input", req["user_input"]),
-            "img_base64": img_base64,
+            # "img_base64": img_base64,
             "img": session.get("img",False),
             "img_url": img_url,
             "malprompt": False,
