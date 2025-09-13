@@ -15,7 +15,7 @@ from pydantic import BaseModel
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Agent.orchestrator import agent
-from App.utils import save_image_to_gcs, OrchestratorRequest, get_api_key_from_secret, serialize_messages, create_session_cloud, load_session_cloud, save_session_cloud
+from App.utils import save_image_to_gcs, OrchestratorRequest, serialize_messages, create_session_cloud, load_session_cloud, save_session_cloud
 
 # Detectar entorno
 entorno = 'cloud'
