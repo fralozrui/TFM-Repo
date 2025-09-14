@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 # ----------------------------
 # Configuración de la imagen
 # ----------------------------
-img_id = 2  # Cambia el ID según la imagen que quieras usar (en el frontend debería ser dinámico y crear el id)
+img_id = 3  # Cambia el ID según la imagen que quieras usar (en el frontend debería ser dinámico y crear el id)
 IMAGE_PATH = fr"Pruebas\Database\Images\{img_id}.jpg"  # Cambia por tu ruta
 with open(IMAGE_PATH, "rb") as f:
     img_bytes = f.read()
@@ -26,7 +26,7 @@ init_req = {
     "api_key": "OfVuikTRE9AcxEWI8DkglHChayiqjKfC",
     "session_id": None,
     "img_base64": img_base64_str,
-    "user_input": "¿Qué se ve en la foto?",
+    "user_input": "¿Qué pone en este paquete?",
     "messages": []
 }
 
