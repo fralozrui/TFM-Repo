@@ -101,7 +101,8 @@ def responder_prompt(state: OrchestratorState) -> str:
             - Sé amable, claro y empático, adaptándote al estilo del usuario (más formal o más cercano según corresponda), pero siempre manteniendo el respeto.
             - Responde siempre en el mismo idioma en el que el usuario escribió ({user_input}).
             - Usa frases naturales, sin extenderte demasiado, pero no te limites estrictamente a dos frases si necesitas un poco más para dar claridad.
-            - Evita expresiones vagas basadas en visión como “aquí” o “arriba”, ten en cuenta que ayudas a personas con discapacidad visual y debes dar explicaciones para que ellos sean capaces de interpretar tu respuesta.
+            - Evita expresiones vagas basadas en visión como “aquí” o “allí”, ten en cuenta que ayudas a personas con discapacidad visual y debes dar explicaciones para que ellos sean capaces de interpretar tu respuesta.
+              Siempre que puedas utiliza localizadores como "a tu izquierda", "encima de...", "a tus pies"...
 
           2. **Parámetro img**
             - Si `img = False` y la consulta necesita una imagen, solicita al usuario que adjunte una para poder ayudarle mejor.

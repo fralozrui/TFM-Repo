@@ -12,13 +12,18 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 # ----------------------------
 # Configuración de la imagen
 # ----------------------------
-img_id = 3  # Cambia el ID según la imagen que quieras usar (en el frontend debería ser dinámico y crear el id)
-IMAGE_PATH = fr"Pruebas\Database\Images\{img_id}.jpg"  # Cambia por tu ruta
-with open(IMAGE_PATH, "rb") as f:
-    img_bytes = f.read()
-
-img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
-
+img_id = 7  # Cambia el ID según la imagen que quieras usar (en el frontend debería ser dinámico y crear el id)
+try:
+    IMAGE_PATH = fr"Pruebas\Database\Images\{img_id}.jpg"  # Cambia por tu ruta
+    with open(IMAGE_PATH, "rb") as f:
+        img_bytes = f.read()
+    img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
+except:
+    IMAGE_PATH = fr"Pruebas\Database\Images\{img_id}.png"  # Cambia por tu ruta
+    with open(IMAGE_PATH, "rb") as f:
+        img_bytes = f.read()
+    img_base64_str = base64.b64encode(img_bytes).decode("utf-8")
+    
 # ----------------------------
 # Payload de la API
 # ----------------------------
@@ -26,7 +31,7 @@ init_req = {
     "api_key": "OfVuikTRE9AcxEWI8DkglHChayiqjKfC",
     "session_id": None,
     "img_base64": img_base64_str,
-    "user_input": "¿De qué es este paquete?",
+    "user_input": "What can you see in this picture?",
     "messages": []
 }
 
