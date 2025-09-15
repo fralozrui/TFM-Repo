@@ -51,9 +51,9 @@ RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2S
 RUN python -c "from transformers import AutoTokenizer; AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-es', cache_dir='/app/hf_cache')"
 RUN python -c "from transformers import AutoModelForSeq2SeqLM; AutoModelForSeq2SeqLM.from_pretrained('Helsinki-NLP/opus-mt-en-es', cache_dir='/app/hf_cache')"
 
-# 4) Microsoft git-base (image-to-text)
-RUN python -c "from transformers import GitProcessor; GitProcessor.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
-RUN python -c "from transformers import GitForCausalLM; GitForCausalLM.from_pretrained('microsoft/git-base', cache_dir='/app/hf_cache')"
+# Salesforce BLIP (image captioning)
+RUN python -c "from transformers import BlipProcessor; BlipProcessor.from_pretrained('Salesforce/blip-image-captioning-base', cache_dir='/app/hf_cache')"
+RUN python -c "from transformers import BlipForConditionalGeneration; BlipForConditionalGeneration.from_pretrained('Salesforce/blip-image-captioning-base', cache_dir='/app/hf_cache')"
 
 # 5) EasyOCR predescarga modelos (es/en)
 RUN python -c "import easyocr; easyocr.Reader(['es','en'], download_enabled=True)"
