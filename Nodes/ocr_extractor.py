@@ -43,9 +43,10 @@ def clean_ocr_with_gemini(ocr_text: str, user_input: str) -> str:
 
     Requisitos:
     - Responde únicamente con el texto limpio y legible.
-    - Usa el mismo idioma que usa el usuario en {user_input}.
+    - Usa el mismo idioma que usa el usuario en "{user_input}".
     - Mantén la estructura natural (puede ser frase, título, lista corta o párrafo).
-    - Evita incluir símbolos raros o saltos de línea innecesarios.
+    - Evita incluir símbolos raros o saltos de línea innecesarios como: \ " -, etc...
+    - Evalúa el sentido del texto y da únicamente frases con sentido.
 
     El usuario preguntó:
     "{user_input}"

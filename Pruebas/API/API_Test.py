@@ -26,7 +26,7 @@ init_req = {
     "api_key": "OfVuikTRE9AcxEWI8DkglHChayiqjKfC",
     "session_id": None,
     "img_base64": img_base64_str,
-    "user_input": "¿Qué pone en este paquete?",
+    "user_input": "¿De qué es este paquete?",
     "messages": []
 }
 
