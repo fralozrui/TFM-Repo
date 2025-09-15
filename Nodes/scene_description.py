@@ -24,15 +24,13 @@ def tool_describe_scene(state: OrchestratorState) -> str:
     """
     print("[DEBUG] Ejecutando tool_describe_scene con BLIP...")
 
-    img_id = state.get("img_id", None)
-    if img_id is not None:
-        image = read_img(img_id)
+    img_base64 = state.get("img_base64", None)
+    if img_base64:
+        image = read_img(img_base64)  
     else:
-        return "[ERROR en tool_describe_scene]: No se ha proporcionado img_id en el estado."
-
+        return "[ERROR en tool_describe_scene]: No se ha proporcionado ninguna imagen."
     if image is None:
-        return "[ERROR en tool_describe_scene]: No se pudo cargar la imagen con el img_id proporcionado."
-
+        return "[ERROR en tool_describe_scene]: No se pudo cargar la imagen con el img_base64 proporcionado."
     # Procesar y generar descripción
     inputs = processor(image, return_tensors="pt").to(device)
 
