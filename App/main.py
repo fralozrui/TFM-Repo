@@ -13,6 +13,7 @@ from typing import Optional, Dict, Any
 from fastapi import FastAPI, HTTPException, Header, APIRouter
 from pydantic import BaseModel
 import sys
+from datetime import timedelta
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Agent.orchestrator import agent
 from App.utils import save_image_to_gcs, OrchestratorRequest, serialize_messages, create_session_cloud, load_session_cloud, save_session_cloud
@@ -107,6 +108,12 @@ if entorno != "local":
                 raise HTTPException(status_code=500, detail=str(e))
 
             # 4) Persist updated state
+            created_at = result.get("created_at", datetime.utcnow().isoformat() + "Z")
+            # Parse created_at to datetime object (assuming ISO format)
+            created_at_dt = datetime.fromisoformat(created_at.replace("Z", "")) if "Z" in created_at else datetime.fromisoformat(created_at)
+            expire_at_dt = created_at_dt + timedelta(days=30)
+            expire_at = expire_at_dt.isoformat() + "Z"
+
             save_session_cloud(session_id, {
                 "user_input": init_state["user_input"],
                 "img_url": result.get("img_url",""),
@@ -122,7 +129,8 @@ if entorno != "local":
                 "val_just": result.get("val_just", ""),
                 "error_history": result.get("error_history", []),
                 "messages": result.get("messages", []),
-                "created_at": result.get("created_at", datetime.utcnow().isoformat() + "Z"),
+                "created_at": created_at,
+                "expire_at": expire_at
             }, fs_client, FIRESTORE_COLLECTION)
 
             return {
