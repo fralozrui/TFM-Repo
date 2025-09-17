@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copiamos requirements e instalamos dependencias
-COPY requirements.txt .
+COPY frontend_requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r frontend_requirements.txt
 
