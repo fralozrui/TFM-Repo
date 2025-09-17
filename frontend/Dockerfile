@@ -24,7 +24,7 @@ RUN pip install -r frontend_requirements.txt
 RUN python -c "import whisper; whisper.load_model('base')"
 
 # Copiamos el resto del proyecto (frontend con Gradio)
-COPY frontend/ .
+COPY . .
 
 # Exponer el puerto que usa Gradio
 EXPOSE 8080
