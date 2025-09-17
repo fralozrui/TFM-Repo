@@ -1,0 +1,40 @@
+name: Deploy frontend to Cloud Run
+on:
+  push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-deploy.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Configure docker for artifact registry
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      - name: Build and push image
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/frontend-repo/frontend:latest"
+          docker build -t $IMAGE frontend/
+          docker push $IMAGE
+
+      - name: Deploy to Cloud Run
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/frontend-repo/frontend:latest"
+          gcloud run deploy argoos-frontend \
+            --image $IMAGE \
+            --region europe-west1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --memory 4Gi --cpu 2 --concurrency 10 --timeout 300 \
+            --set-env-vars FRONTEND_API_URL=${{ secrets.FRONTEND_API_URL }},FRONTEND_API_KEY=${{ secrets.FRONTEND_API_KEY }}
