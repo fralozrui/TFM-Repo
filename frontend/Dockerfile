@@ -8,17 +8,17 @@ RUN apt-get update && apt-get install -y \
     espeak \
     libespeak-ng1 \
     libsndfile1 \
-    && apt-get clean \
     libasound2-dev \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Directorio de trabajo
 WORKDIR /app
 
 # Copiamos requirements e instalamos dependencias
-COPY frontend_requirements.txt .
+COPY frontend_requirements.txt ./frontend_requirements.txt
 RUN pip install --upgrade pip
-RUN pip install -r frontend_requirements.txt
+RUN pip install -r ./frontend_requirements.txt
 
 # Descargamos el modelo Whisper en el build para evitar descargas en runtime
 RUN python -c "import whisper; whisper.load_model('base')"

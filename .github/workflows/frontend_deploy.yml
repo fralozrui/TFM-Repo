@@ -57,5 +57,5 @@ jobs:
             --platform managed \
             --allow-unauthenticated \
             --service-account argoos-run-sa@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
-            --memory 4Gi --cpu 2 --concurrency 10 --timeout 300 \
+            --memory 10Gi --cpu 3 --concurrency 10 --timeout 300 \
             --set-env-vars API_URL=${{ secrets.API_URL }},API_KEY=${{ secrets.API_KEY }}
