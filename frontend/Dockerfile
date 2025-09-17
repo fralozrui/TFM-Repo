@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     libespeak-ng1 \
     libsndfile1 \
     && apt-get clean \
+    libasound2-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Directorio de trabajo
@@ -23,7 +24,7 @@ RUN pip install -r frontend_requirements.txt
 RUN python -c "import whisper; whisper.load_model('base')"
 
 # Copiamos el resto del proyecto (frontend con Gradio)
-COPY . .
+COPY frontend/ .
 
 # Exponer el puerto que usa Gradio
 EXPOSE 8080
