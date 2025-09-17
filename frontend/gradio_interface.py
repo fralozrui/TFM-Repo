@@ -157,7 +157,11 @@ with gr.Blocks() as demo:
 
     # Enviar texto + foto fija
     def send_message(user_text, state: AppState):
-        return enviar_a_api(user_text, state) + ("",)  # limpiar textbox
+        chat_html, audio_path, new_state = enviar_a_api(user_text, state)
+        return chat_html, audio_path, new_state, ""
+
+    # def send_message(user_text, state: AppState):
+    #     return enviar_a_api(user_text, state) + ("",)  # limpiar textbox
 
     send_button.click(send_message, [input_text, state_gr], [chat_area, output_audio, state_gr, input_text])
 
