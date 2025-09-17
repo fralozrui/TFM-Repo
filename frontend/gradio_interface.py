@@ -41,6 +41,24 @@ def hablar(texto, filename="respuesta.wav"):
     engine.runAndWait()
     return filename
 
+def hablar_cloud(texto):
+    # Crear un archivo temporal único
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f:
+        filename = f.name
+
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 180)
+    engine.setProperty('volume', 1)
+    voices = engine.getProperty('voices')
+    for voice in voices:
+        if 'spanish' in voice.name.lower() or 'es_' in voice.id.lower():
+            engine.setProperty('voice', voice.id)
+            break
+    engine.save_to_file(texto, filename)
+    engine.runAndWait()
+    return filename
+
+
 def imagen_a_base64(img_path):
     if not img_path:
         return None
@@ -103,8 +121,9 @@ def enviar_a_api(user_text, state: AppState):
 
     state.conversation.append({"role":"assistant","content":respuesta})
 
-    temp_wav = os.path.join(tempfile.gettempdir(),"respuesta.wav")
-    hablar(respuesta,temp_wav)
+    # temp_wav = os.path.join(tempfile.gettempdir(),"respuesta.wav")
+    # hablar(respuesta,temp_wav)
+    temp_wav = hablar_cloud(respuesta)
 
     return render_chat(state.conversation), temp_wav, state
 
