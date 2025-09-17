@@ -44,4 +44,4 @@ jobs:
             --platform managed \
             --allow-unauthenticated \
             --memory 4Gi --cpu 2 --concurrency 10 --timeout 300 \
-            --set-env-vars FRONTEND_API_URL=${{ secrets.FRONTEND_API_URL }},FRONTEND_API_KEY=${{ secrets.FRONTEND_API_KEY }}
+            --set-env-vars API_URL=${{ secrets.API_URL }},API_KEY=${{ secrets.API_KEY }}
