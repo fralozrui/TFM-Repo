@@ -27,7 +27,7 @@ def transcribir_audio(filepath):
         return ""
     return modelo_whisper.transcribe(filepath, language="es")["text"]
 
-# TTS
+# TTS → genera un archivo temporal y devuelve su ruta
 def hablar(texto, filename="respuesta.wav"):
     engine = pyttsx3.init()
     engine.setProperty('rate', 180)
@@ -40,12 +40,9 @@ def hablar(texto, filename="respuesta.wav"):
     engine.save_to_file(texto, filename)
     engine.runAndWait()
     return filename
-
 def hablar_cloud(texto):
-    # Crear un archivo temporal único
     with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f:
         filename = f.name
-
     engine = pyttsx3.init()
     engine.setProperty('rate', 180)
     engine.setProperty('volume', 1)
@@ -57,7 +54,6 @@ def hablar_cloud(texto):
     engine.save_to_file(texto, filename)
     engine.runAndWait()
     return filename
-
 
 def imagen_a_base64(img_path):
     if not img_path:
@@ -76,30 +72,31 @@ def render_chat(conversation):
         role = msg.get('role','user')
         content = msg.get('content','')
         msg_type = msg.get('type','text')
-        if msg_type=="image":
+        if msg_type == "image":
             html_content = f"<img src='{content}' class='chat-img'>"
         else:
             html_content = content
-        if role=="user":
+        if role == "user":
             html += f"<div class='msg user'>{html_content}</div>"
-        elif role=="assistant":
+        elif role == "assistant":
             html += f"<div class='msg assistant'>{html_content}</div>"
     html += "<script>var objDiv=document.getElementById('chat_box');objDiv.scrollTop=objDiv.scrollHeight;</script></div>"
     return html
 
+# -------------------------------
 # Función de envío a API
+# -------------------------------
 def enviar_a_api(user_text, state: AppState):
     img_base64 = ""
     if state.current_image:
-        img_base64 = base64.b64encode(open(state.current_image,"rb").read()).decode("utf-8")
-        # Mostrar la imagen en chat solo si no estaba ya
-        if not any(m.get('type')=='image' and m.get('content')==imagen_a_base64(state.current_image) for m in state.conversation):
-            state.conversation.append({"role":"user","type":"image","content":imagen_a_base64(state.current_image)})
+        img_base64 = base64.b64encode(open(state.current_image, "rb").read()).decode("utf-8")
+        if not any(m.get('type') == 'image' and m.get('content') == imagen_a_base64(state.current_image) for m in state.conversation):
+            state.conversation.append({"role": "user", "type": "image", "content": imagen_a_base64(state.current_image)})
 
     user_text_api = user_text if user_text.strip() else ("que ves en la foto" if img_base64 else "")
 
     if user_text.strip():
-        state.conversation.append({"role":"user","content":user_text})
+        state.conversation.append({"role": "user", "content": user_text})
 
     payload = {
         "api_key": API_KEY,
@@ -115,19 +112,30 @@ def enviar_a_api(user_text, state: AppState):
         if response and response.ok and response.content:
             data = response.json()
             if isinstance(data, dict):
-                respuesta = data.get("final_response","[Sin respuesta]")
+                respuesta = data.get("final_response", "[Sin respuesta]")
     except Exception as e:
         respuesta = f"[Error al conectar con API: {e}]"
 
-    state.conversation.append({"role":"assistant","content":respuesta})
+    state.conversation.append({"role": "assistant", "content": respuesta})
 
-    # temp_wav = os.path.join(tempfile.gettempdir(),"respuesta.wav")
-    # hablar(respuesta,temp_wav)
+    # Generar archivo de audio
     temp_wav = hablar_cloud(respuesta)
 
-    return render_chat(state.conversation), temp_wav, state
+    # 🔑 Convertir archivo a bytes para Gradio
+    with open(temp_wav, "rb") as f:
+        audio_bytes = f.read()
 
+    # (Opcional) limpiar archivo temporal
+    try:
+        os.remove(temp_wav)
+    except OSError:
+        pass
+
+    return render_chat(state.conversation), audio_bytes, state
+
+# -------------------------------
 # Interfaz Gradio
+# -------------------------------
 with gr.Blocks() as demo:
     state_gr = gr.State(value=AppState())
     gr.HTML("<div style='background-color:#ff4500;color:white;padding:10px;text-align:center;font-size:24px;font-weight:bold;'>ARGOOS</div>")
@@ -141,31 +149,25 @@ with gr.Blocks() as demo:
         input_text = gr.Textbox(placeholder="Escribe un mensaje...", show_label=False, lines=1, max_lines=3, scale=5)
         send_button = gr.Button("Enviar", scale=1)
 
+    # 🔑 El output de enviar_a_api será audio_bytes
     output_audio = gr.Audio(label="", autoplay=True, show_label=False, elem_id="output_audio", interactive=False)
 
-    # Subir foto → se muestra y queda fija
     def upload_photo_callback(img_file, state):
         if img_file:
             state.current_image = img_file
-            # Mostrar solo si no estaba ya en el chat
             img_data_uri = imagen_a_base64(img_file)
-            if not any(m.get('type')=='image' and m.get('content')==img_data_uri for m in state.conversation):
-                state.conversation.append({"role":"user","type":"image","content":img_data_uri})
+            if not any(m.get('type') == 'image' and m.get('content') == img_data_uri for m in state.conversation):
+                state.conversation.append({"role": "user", "type": "image", "content": img_data_uri})
         return render_chat(state.conversation), state
 
     upload_image.change(upload_photo_callback, [upload_image, state_gr], [chat_area, state_gr])
 
-    # Enviar texto + foto fija
     def send_message(user_text, state: AppState):
-        chat_html, audio_path, new_state = enviar_a_api(user_text, state)
-        return chat_html, audio_path, new_state, ""
-
-    # def send_message(user_text, state: AppState):
-    #     return enviar_a_api(user_text, state) + ("",)  # limpiar textbox
+        chat_html, audio_bytes, new_state = enviar_a_api(user_text, state)
+        return chat_html, audio_bytes, new_state, ""  # limpiar textbox
 
     send_button.click(send_message, [input_text, state_gr], [chat_area, output_audio, state_gr, input_text])
 
-    # Enviar audio + foto fija
     def audio_callback(audio_path, state):
         if audio_path:
             texto = transcribir_audio(audio_path)
@@ -173,7 +175,7 @@ with gr.Blocks() as demo:
         return render_chat(state.conversation), None, state
 
     record_button.change(audio_callback, [record_button, state_gr], [chat_area, output_audio, state_gr])
-    
-if __name__=="__main__":
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     demo.launch(server_name="0.0.0.0", server_port=port, share=False, inbrowser=False, show_api=False)
