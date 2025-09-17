@@ -14,8 +14,8 @@ class AppState:
     def __init__(self, conversation=None):
         self.conversation = conversation or []
 
-# Whisper
-modelo_whisper = whisper.load_model("base")
+# Whisper (small, más rápido/preciso que base)
+modelo_whisper = whisper.load_model("small")
 def transcribir_audio(filepath):
     if not filepath:
         return ""
@@ -66,36 +66,38 @@ def render_chat(conversation):
     return html
 
 def enviar_a_api(user_text, img_path, state: AppState):
-    # Mostrar pensando
-    state.conversation.append({"role":"thinking","content":"ARGOOS está pensando 😎 …"})
-    chat_html = render_chat(state.conversation)
-
     img_base64 = ""
+    user_text_api = user_text.strip()
+
+    # Añadir imagen al chat si existe
     if img_path:
         img_base64 = base64.b64encode(open(img_path,"rb").read()).decode("utf-8")
         img_data_uri = imagen_a_base64(img_path)
-        # Mostrar la imagen en chat, pero no "que ves en la foto"
         state.conversation.append({"role":"user","type":"image","content":img_data_uri})
-        if not user_text.strip():
-            user_text_api = "que ves en la foto"  # Solo se envía a la API
-        else:
-            user_text_api = user_text
-    else:
-        user_text_api = user_text
+        if not user_text_api:
+            user_text_api = "que ves en la foto"
 
+    # Añadir texto del usuario al chat inmediatamente
     if user_text.strip():
         state.conversation.append({"role":"user","content":user_text})
 
-    payload = {
-        "api_key": API_KEY,
-        "user_input": user_text_api,
-        "session_id": None,
-        "img_base64": img_base64,
-        "messages": []
-    }
+    # Mostrar chat actualizado con mensaje del usuario antes de procesar
+    chat_html = render_chat(state.conversation)
 
+    # Añadir "pensando..."
+    state.conversation.append({"role":"thinking","content":"ARGOOS está pensando 😎 …"})
+    thinking_html = render_chat(state.conversation)
+
+    # Llamada a la API
     respuesta = "[Error: no se obtuvo respuesta de la API]"
     try:
+        payload = {
+            "api_key": API_KEY,
+            "user_input": user_text_api,
+            "session_id": None,
+            "img_base64": img_base64,
+            "messages": []
+        }
         response = requests.post(API_URL, json=payload)
         if response and response.ok and response.content:
             data = response.json()
@@ -104,14 +106,14 @@ def enviar_a_api(user_text, img_path, state: AppState):
     except Exception as e:
         respuesta = f"[Error al conectar con API: {e}]"
 
-    # Quitar thinking
+    # Reemplazar "pensando" por respuesta final
     state.conversation = [m for m in state.conversation if m.get('role')!="thinking"]
     state.conversation.append({"role":"assistant","content":respuesta})
 
     temp_wav = os.path.join(tempfile.gettempdir(),"respuesta.wav")
     hablar(respuesta,temp_wav)
 
-    return render_chat(state.conversation), temp_wav, state
+    return chat_html, thinking_html, render_chat(state.conversation), temp_wav, state
 
 # Interfaz Gradio
 with gr.Blocks() as demo:
@@ -130,25 +132,26 @@ with gr.Blocks() as demo:
     output_audio = gr.Audio(label="", autoplay=True, show_label=False, elem_id="output_audio", interactive=False)
 
     def send_message(user_text, img_file, state: AppState):
-        return enviar_a_api(user_text,img_file,state)
+        chat_html, thinking_html, final_html, audio, state = enviar_a_api(user_text, img_file, state)
+        # flujo: 1) mensaje del usuario -> 2) pensando -> 3) respuesta final
+        return chat_html, output_audio.update(value=None), state, ""  # muestra mensaje del usuario y limpia textbox
+    def continue_with_response(user_text, img_file, state: AppState):
+        _, _, final_html, audio, state = enviar_a_api(user_text, img_file, state)
+        return final_html, audio, state
 
-    send_button.click(send_message,[input_text,upload_image,state_gr],[chat_area,output_audio,state_gr])
-
-    def upload_photo_callback(img_file,state):
-        if img_file:
-            return enviar_a_api("",img_file,state)
-        return render_chat(state.conversation), None, state
-
-    upload_image.change(upload_photo_callback,[upload_image,state_gr],[chat_area,output_audio,state_gr])
+    send_button.click(send_message,
+                      [input_text, upload_image, state_gr],
+                      [chat_area, output_audio, state_gr, input_text]) \
+               .then(continue_with_response,
+                     [input_text, upload_image, state_gr],
+                     [chat_area, output_audio, state_gr])
 
     def audio_callback(audio_path,state):
         if audio_path:
             texto = transcribir_audio(audio_path)
             return enviar_a_api(texto,None,state)
-        return render_chat(state.conversation), None, state
+        return re
 
-    record_button.change(audio_callback,[record_button,state_gr],[chat_area,output_audio,state_gr])
 
-if __name__=="__main__":
-    demo.launch(share=True)
+
 
