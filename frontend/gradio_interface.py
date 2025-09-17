@@ -11,11 +11,13 @@ API_URL = "https://argoos-agent-596952248473.europe-west1.run.app/orchestrate"
 API_KEY = "OfVuikTRE9AcxEWI8DkglHChayiqjKfC"
 
 class AppState:
-    def __init__(self, conversation=None):
+    def __init__(self, conversation=None, last_text="", current_image=None):
         self.conversation = conversation or []
+        self.last_text = last_text
+        self.current_image = current_image  # foto fija que se envía siempre
 
-# Whisper
-modelo_whisper = whisper.load_model("base")
+# Whisper small
+modelo_whisper = whisper.load_model("small")
 def transcribir_audio(filepath):
     if not filepath:
         return ""
@@ -47,7 +49,7 @@ def imagen_a_base64(img_path):
 
 def render_chat(conversation):
     html = "<div id='chat_box' style='height:400px; overflow-y:auto; padding:10px; font-family:Arial; background:black;'>"
-    html += "<style>@keyframes fadein{from{opacity:0}to{opacity:1}}.msg{animation:fadein 0.3s;margin:6px 0;padding:10px 14px;border-radius:20px;max-width:70%;display:inline-block;word-wrap:break-word;font-size:15px;}.user{background-color:#ffa500;color:white;float:right;clear:both;text-align:right}.assistant{background-color:#7d7d7d;color:white;float:left;clear:both;text-align:left}.thinking{background:none;color:yellow;float:left;clear:both;font-weight:bold}img.chat-img{max-width:120px;border-radius:10px;margin:5px 0;display:block}</style>"
+    html += "<style>@keyframes fadein{from{opacity:0}to{opacity:1}}.msg{animation:fadein 0.3s;margin:6px 0;padding:10px 14px;border-radius:20px;max-width:70%;display:inline-block;word-wrap:break-word;font-size:15px;}.user{background-color:#ffa500;color:white;float:right;clear:both;text-align:right}.assistant{background-color:#7d7d7d;color:white;float:left;clear:both;text-align:left}img.chat-img{max-width:120px;border-radius:10px;margin:5px 0;display:block}</style>"
     for msg in conversation:
         role = msg.get('role','user')
         content = msg.get('content','')
@@ -60,28 +62,19 @@ def render_chat(conversation):
             html += f"<div class='msg user'>{html_content}</div>"
         elif role=="assistant":
             html += f"<div class='msg assistant'>{html_content}</div>"
-        elif role=="thinking":
-            html += f"<div class='thinking'>{html_content}</div>"
     html += "<script>var objDiv=document.getElementById('chat_box');objDiv.scrollTop=objDiv.scrollHeight;</script></div>"
     return html
 
-def enviar_a_api(user_text, img_path, state: AppState):
-    # Mostrar pensando
-    state.conversation.append({"role":"thinking","content":"ARGOOS está pensando 😎 …"})
-    chat_html = render_chat(state.conversation)
-
+# Función de envío a API
+def enviar_a_api(user_text, state: AppState):
     img_base64 = ""
-    if img_path:
-        img_base64 = base64.b64encode(open(img_path,"rb").read()).decode("utf-8")
-        img_data_uri = imagen_a_base64(img_path)
-        # Mostrar la imagen en chat
-        state.conversation.append({"role":"user","type":"image","content":img_data_uri})
-        if not user_text.strip():
-            user_text_api = "que ves en la foto"
-        else:
-            user_text_api = user_text
-    else:
-        user_text_api = user_text
+    if state.current_image:
+        img_base64 = base64.b64encode(open(state.current_image,"rb").read()).decode("utf-8")
+        # Mostrar la imagen en chat solo si no estaba ya
+        if not any(m.get('type')=='image' and m.get('content')==imagen_a_base64(state.current_image) for m in state.conversation):
+            state.conversation.append({"role":"user","type":"image","content":imagen_a_base64(state.current_image)})
+
+    user_text_api = user_text if user_text.strip() else ("que ves en la foto" if img_base64 else "")
 
     if user_text.strip():
         state.conversation.append({"role":"user","content":user_text})
@@ -104,8 +97,6 @@ def enviar_a_api(user_text, img_path, state: AppState):
     except Exception as e:
         respuesta = f"[Error al conectar con API: {e}]"
 
-    # Quitar thinking
-    state.conversation = [m for m in state.conversation if m.get('role')!="thinking"]
     state.conversation.append({"role":"assistant","content":respuesta})
 
     temp_wav = os.path.join(tempfile.gettempdir(),"respuesta.wav")
@@ -129,24 +120,33 @@ with gr.Blocks() as demo:
 
     output_audio = gr.Audio(label="", autoplay=True, show_label=False, elem_id="output_audio", interactive=False)
 
-    def send_message(user_text, img_file, state: AppState):
-        chat_html, audio, state = enviar_a_api(user_text, img_file, state)
-        return chat_html, audio, state, ""  # <-- vacío para limpiar el textbox
+    # Subir foto → se muestra y queda fija
+    def upload_photo_callback(img_file, state):
+        if img_file:
+            state.current_image = img_file
+            # Mostrar solo si no estaba ya en el chat
+            img_data_uri = imagen_a_base64(img_file)
+            if not any(m.get('type')=='image' and m.get('content')==img_data_uri for m in state.conversation):
+                state.conversation.append({"role":"user","type":"image","content":img_data_uri})
+        return render_chat(state.conversation), state
 
-    # Al hacer click en "Enviar", se manda texto+imagen (si hay) y se limpia el textbox
-    send_button.click(send_message,
-                      [input_text, upload_image, state_gr],
-                      [chat_area, output_audio, state_gr, input_text])
+    upload_image.change(upload_photo_callback, [upload_image, state_gr], [chat_area, state_gr])
 
-    def audio_callback(audio_path,state):
+    # Enviar texto + foto fija
+    def send_message(user_text, state: AppState):
+        return enviar_a_api(user_text, state) + ("",)  # limpiar textbox
+
+    send_button.click(send_message, [input_text, state_gr], [chat_area, output_audio, state_gr, input_text])
+
+    # Enviar audio + foto fija
+    def audio_callback(audio_path, state):
         if audio_path:
             texto = transcribir_audio(audio_path)
-            return enviar_a_api(texto,None,state)
+            return enviar_a_api(texto, state)
         return render_chat(state.conversation), None, state
 
-    record_button.change(audio_callback,[record_button,state_gr],[chat_area,output_audio,state_gr])
+    record_button.change(audio_callback, [record_button, state_gr], [chat_area, output_audio, state_gr])
 
 if __name__=="__main__":
     demo.launch(share=True)
-
 
