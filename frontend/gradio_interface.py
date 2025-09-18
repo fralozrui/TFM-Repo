@@ -10,6 +10,9 @@ import tempfile
 import os
 import mimetypes
 import whisper
+import subprocess
+import tempfile
+import os
 
 API_URL = os.getenv("API_URL")
 API_KEY = os.getenv("API_KEY")
@@ -40,19 +43,41 @@ def hablar(texto, filename="respuesta.wav"):
     engine.save_to_file(texto, filename)
     engine.runAndWait()
     return filename
+
 def hablar_cloud(texto):
+    """
+    Genera un WAV usando el binario `espeak` (síncrono).
+    Devuelve la ruta al archivo generado (wav) -- el llamador lo leerá en bytes.
+    """
+    # archivo temporal único
     with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f:
         filename = f.name
-    engine = pyttsx3.init()
-    engine.setProperty('rate', 180)
-    engine.setProperty('volume', 1)
-    voices = engine.getProperty('voices')
-    for voice in voices:
-        if 'spanish' in voice.name.lower() or 'es_' in voice.id.lower():
-            engine.setProperty('voice', voice.id)
-            break
-    engine.save_to_file(texto, filename)
-    engine.runAndWait()
+
+    # Llamada síncrona: pasamos el texto por stdin para evitar problemas de quoting
+    cmd = ["espeak", "-v", "es", "-w", filename]
+    try:
+        proc = subprocess.run(cmd, input=texto.encode("utf-8"), check=True)
+    except subprocess.CalledProcessError as e:
+        # si falla, limpiamos y relanzamos la excepción para logging superior
+        try:
+            os.remove(filename)
+        except Exception:
+            pass
+        raise RuntimeError(f"espeak fallo: {e}") from e
+
+    # verificación mínima: tamaño razonable
+    try:
+        size = os.path.getsize(filename)
+        if size < 200:  # umbral conservador; ajuste según pruebas
+            raise RuntimeError(f"Archivo de audio demasiado pequeño ({size} bytes)")
+    except Exception as e:
+        # asegurar limpieza si hay fallo
+        try:
+            os.remove(filename)
+        except Exception:
+            pass
+        raise
+
     return filename
 
 def imagen_a_base64(img_path):
