@@ -1,0 +1,61 @@
+name: Deploy frontend to Cloud Run
+
+on:
+  push:
+    branches:
+      - Carlos
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Checkout del código
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2) Configurar Google Cloud SDK
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      # 3) Autenticar con la service account
+      - name: Authenticate with service account
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > $GITHUB_WORKSPACE/key.json
+          gcloud auth activate-service-account --key-file=$GITHUB_WORKSPACE/key.json
+
+      # 4) Login a Docker Hub (opcional, para evitar rate limit)
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 5) Configurar Docker para Artifact Registry
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      # 6) Build y push de la imagen del frontend
+      - name: Build and push Docker image
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/frontend-repo/frontend:latest"
+          docker build -t $IMAGE frontend/
+          docker push $IMAGE
+
+      # 7) Desplegar a Cloud Run (servicio distinto)
+      - name: Deploy to Cloud Run
+        run: |
+          IMAGE="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/frontend-repo/frontend:latest"
+          gcloud run deploy argoos-frontend \
+            --image $IMAGE \
+            --region europe-west1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --service-account argoos-run-sa@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
+            --memory 10Gi --cpu 4 --concurrency 10 --timeout 300 \
+            --set-env-vars API_URL=${{ secrets.API_URL }},API_KEY=${{ secrets.API_KEY }}

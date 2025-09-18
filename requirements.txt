@@ -1,0 +1,41 @@
+# Core
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+
+# Graph orchestration
+langgraph==0.0.57
+langchain==0.2.6
+langchain-core==0.2.12
+langchain-community==0.2.6
+
+# Modelos y HuggingFace
+transformers==4.40.2
+huggingface-hub==0.23.1
+accelerate==0.30.1
+bitsandbytes==0.43.1
+numpy>=1.24
+
+# OCR
+easyocr==1.7.1
+torch==2.3.0
+torchvision==0.18.0
+opencv-python-headless==4.9.0.80
+scikit-image==0.22.0
+
+# Google / Gemini
+google-generativeai==0.7.2
+google-cloud-secret-manager
+google-cloud-firestore
+google-cloud-storage==2.17.0
+
+
+# Audio e imagen
+pydub==0.25.1
+Pillow==10.3.0
+
+# Frontend prototipo
+gradio==4.31.4
+
+# Utilidades
+python-dotenv==1.0.1
+sentencepiece==0.2.1
